@@ -1,4 +1,5 @@
 import questions from "/questions.js";
+import questions2 from "/questions2.js";
 import examQuestions from "/examQuestions.js";
 let isLocked = false;
 
@@ -29,10 +30,10 @@ go("start");
 
 scene("game", () => {
   let answerButtons = [];
-  let universityScore = 30;
-  let egoScore = 30;
-  let moneyScore = 30;
-  let peopleScore = 30;
+  let universityScore = 40;
+  let egoScore = 40;
+  let moneyScore = 40;
+  let peopleScore = 40;
   const examLabel = add([text(""), pos(width() / 2, 200), anchor("center")]);
 
   let currentQuestionIndex = 1;
@@ -189,18 +190,18 @@ scene("game", () => {
     if (
       shuffledQuestions.length > currentQuestionIndex &&
       0 < universityScore &&
-      universityScore < 60 &&
+      universityScore < 80 &&
       0 < egoScore &&
-      egoScore < 60 &&
+      egoScore < 80 &&
       0 < moneyScore &&
-      moneyScore < 60 &&
+      moneyScore < 80 &&
       0 < peopleScore &&
-      peopleScore < 60
+      peopleScore < 80
     ) {
       wait(0.05, setNextQuestion);
     } else if (
       shuffledQuestions.length > currentQuestionIndex &&
-      universityScore >= 60
+      universityScore >= 80
     ) {
       go("universityHigh");
     } else if (
@@ -210,7 +211,7 @@ scene("game", () => {
       go("universityLow");
     } else if (
       shuffledQuestions.length > currentQuestionIndex &&
-      egoScore >= 60
+      egoScore >= 80
     ) {
       go("egoHigh");
     } else if (
@@ -220,7 +221,7 @@ scene("game", () => {
       go("egoLow");
     } else if (
       shuffledQuestions.length > currentQuestionIndex &&
-      moneyScore >= 60
+      moneyScore >= 80
     ) {
       go("moneyHigh");
     } else if (
@@ -230,7 +231,7 @@ scene("game", () => {
       go("moneyLow");
     } else if (
       shuffledQuestions.length > currentQuestionIndex &&
-      peopleScore >= 60
+      peopleScore >= 80
     ) {
       go("peopleHigh");
     } else if (
@@ -427,6 +428,18 @@ scene("win", () => {
     anchor("center"),
   ]);
 
-  onKeyPress("space", () => go("start"));
-  onClick(() => go("game"));
+  let nextLevelButton = add([
+    rect(900, 100, { radius: 8 }),
+    pos(width() / 2, 450 + index * 100),
+    area(),
+    scale(1),
+    anchor("center"),
+    outline(4),
+  ]);
+
+  nextLevelButton.add([text("Continue"), anchor("center"), color(0, 0, 0)]);
+
+  nextLevelButton.onClick(() => {
+    go("game");
+  });
 });
