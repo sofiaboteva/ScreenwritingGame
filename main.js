@@ -190,18 +190,18 @@ scene("game", () => {
     if (
       shuffledQuestions.length > currentQuestionIndex &&
       0 < universityScore &&
-      universityScore < 80 &&
+      universityScore < 90 &&
       0 < egoScore &&
-      egoScore < 80 &&
+      egoScore < 90 &&
       0 < moneyScore &&
-      moneyScore < 80 &&
+      moneyScore < 90 &&
       0 < peopleScore &&
-      peopleScore < 80
+      peopleScore < 90
     ) {
       wait(0.05, setNextQuestion);
     } else if (
       shuffledQuestions.length > currentQuestionIndex &&
-      universityScore >= 80
+      universityScore >= 90
     ) {
       go("universityHigh");
     } else if (
@@ -211,7 +211,7 @@ scene("game", () => {
       go("universityLow");
     } else if (
       shuffledQuestions.length > currentQuestionIndex &&
-      egoScore >= 80
+      egoScore >= 90
     ) {
       go("egoHigh");
     } else if (
@@ -221,7 +221,7 @@ scene("game", () => {
       go("egoLow");
     } else if (
       shuffledQuestions.length > currentQuestionIndex &&
-      moneyScore >= 80
+      moneyScore >= 90
     ) {
       go("moneyHigh");
     } else if (
@@ -231,7 +231,7 @@ scene("game", () => {
       go("moneyLow");
     } else if (
       shuffledQuestions.length > currentQuestionIndex &&
-      peopleScore >= 80
+      peopleScore >= 90
     ) {
       go("peopleHigh");
     } else if (
