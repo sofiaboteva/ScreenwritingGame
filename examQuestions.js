@@ -4,17 +4,11 @@ const examQuestions = [
     answers: [
       {
         text: "Goal",
-        university: 0,
-        ego: 0,
-        money: 0,
-        people: 0,
+        value: 0,
       },
       {
         text: "Self-esteem",
-        university: -60,
-        ego: 0,
-        money: 0,
-        people: 0,
+        value: 1,
       },
     ],
   },
@@ -24,17 +18,11 @@ const examQuestions = [
     answers: [
       {
         text: "A single central character",
-        university: 0,
-        ego: 0,
-        money: 0,
-        people: 0,
+        value: 0,
       },
       {
         text: "Several central characters",
-        university: -60,
-        ego: 0,
-        money: 0,
-        people: 0,
+        value: 1,
       },
     ],
   },
@@ -44,17 +32,11 @@ const examQuestions = [
     answers: [
       {
         text: "By overcoming many obstacles",
-        university: 0,
-        ego: 0,
-        money: 0,
-        people: 0,
+        value: 0,
       },
       {
         text: "Without struggle",
-        university: -60,
-        ego: 0,
-        money: 0,
-        people: 0,
+        value: 1,
       },
     ],
   },
@@ -64,17 +46,11 @@ const examQuestions = [
     answers: [
       {
         text: "One",
-        university: 0,
-        ego: 0,
-        money: 0,
-        people: 0,
+        value: 0,
       },
       {
         text: "As much as you want",
-        university: -60,
-        ego: 0,
-        money: 0,
-        people: 0,
+        value: 1,
       },
     ],
   },
@@ -84,17 +60,11 @@ const examQuestions = [
     answers: [
       {
         text: "It should be hard to achieve",
-        university: 0,
-        ego: 0,
-        money: 0,
-        people: 0,
+        value: 0,
       },
       {
         text: "It should be easy to achieve",
-        university: -60,
-        ego: 0,
-        money: 0,
-        people: 0,
+        value: 1,
       },
     ],
   },
@@ -104,17 +74,11 @@ const examQuestions = [
     answers: [
       {
         text: "Antagonist",
-        university: 0,
-        ego: 0,
-        money: 0,
-        people: 0,
+        value: 0,
       },
       {
         text: "Protagonist",
-        university: -60,
-        ego: 0,
-        money: 0,
-        people: 0,
+        value: 1,
       },
     ],
   },
@@ -124,17 +88,11 @@ const examQuestions = [
     answers: [
       {
         text: "True",
-        university: 0,
-        ego: 0,
-        money: 0,
-        people: 0,
+        value: 0,
       },
       {
         text: "False",
-        university: -60,
-        ego: 0,
-        money: 0,
-        people: 0,
+        value: 1,
       },
     ],
   },
@@ -144,17 +102,11 @@ const examQuestions = [
     answers: [
       {
         text: "Internal conflict",
-        university: 0,
-        ego: 0,
-        money: 0,
-        people: 0,
+        value: 0,
       },
       {
         text: "Autoconflict",
-        university: -60,
-        ego: 0,
-        money: 0,
-        people: 0,
+        value: 1,
       },
     ],
   },
@@ -165,17 +117,11 @@ const examQuestions = [
     answers: [
       {
         text: "True",
-        university: -60,
-        ego: 0,
-        money: 0,
-        people: 0,
+        value: 1,
       },
       {
         text: "False",
-        university: 0,
-        ego: 0,
-        money: 0,
-        people: 0,
+        value: 0,
       },
     ],
   },
@@ -185,17 +131,11 @@ const examQuestions = [
     answers: [
       {
         text: "Anything that stops the hero from achieving his goal",
-        university: 0,
-        ego: 0,
-        money: 0,
-        people: 0,
+        value: 0,
       },
       {
         text: "Only hero's fight with antagonist",
-        university: -60,
-        ego: 0,
-        money: 0,
-        people: 0,
+        value: 1,
       },
     ],
   },
@@ -206,17 +146,11 @@ const examQuestions = [
     answers: [
       {
         text: "The journey of the protagonist through three distinct acts",
-        university: 0,
-        ego: 0,
-        money: 0,
-        people: 0,
+        value: 0,
       },
       {
         text: "The inclusion of three major conflicts in the story",
-        university: -60,
-        ego: 0,
-        money: 0,
-        people: 0,
+        value: 1,
       },
     ],
   },
@@ -226,17 +160,11 @@ const examQuestions = [
     answers: [
       {
         text: "3",
-        university: 0,
-        ego: 0,
-        money: 0,
-        people: 0,
+        value: 0,
       },
       {
         text: "4",
-        university: -60,
-        ego: 0,
-        money: 0,
-        people: 0,
+        value: 1,
       },
     ],
   },
@@ -247,17 +175,11 @@ const examQuestions = [
     answers: [
       {
         text: "True",
-        university: -60,
-        ego: 0,
-        money: 0,
-        people: 0,
+        value: 1,
       },
       {
         text: "False",
-        university: 0,
-        ego: 0,
-        money: 0,
-        people: 0,
+        value: 0,
       },
     ],
   },
@@ -267,17 +189,11 @@ const examQuestions = [
     answers: [
       {
         text: "To provide stage directions for the actors",
-        university: -60,
-        ego: 0,
-        money: 0,
-        people: 0,
+        value: 1,
       },
       {
         text: "To convey deeper meanings and underlying emotions",
-        university: 0,
-        ego: 0,
-        money: 0,
-        people: 0,
+        value: 0,
       },
     ],
   },
@@ -288,17 +204,11 @@ const examQuestions = [
     answers: [
       {
         text: "Timelapse",
-        university: -60,
-        ego: 0,
-        money: 0,
-        people: 0,
+        value: 1,
       },
       {
         text: "Ellipsis",
-        university: 0,
-        ego: 0,
-        money: 0,
-        people: 0,
+        value: 0,
       },
     ],
   },
@@ -307,17 +217,11 @@ const examQuestions = [
     answers: [
       {
         text: "Climax",
-        university: -60,
-        ego: 0,
-        money: 0,
-        people: 0,
+        value: 1,
       },
       {
         text: "Resolution",
-        university: 0,
-        ego: 0,
-        money: 0,
-        people: 0,
+        value: 0,
       },
     ],
   },
@@ -327,17 +231,11 @@ const examQuestions = [
     answers: [
       {
         text: "To introduce the main conflict",
-        university: -60,
-        ego: 0,
-        money: 0,
-        people: 0,
+        value: 1,
       },
       {
         text: "To provide background information about the characters",
-        university: 0,
-        ego: 0,
-        money: 0,
-        people: 0,
+        value: 0,
       },
     ],
   },
@@ -348,17 +246,11 @@ const examQuestions = [
     answers: [
       {
         text: "Prelude",
-        university: -60,
-        ego: 0,
-        money: 0,
-        people: 0,
+        value: 1,
       },
       {
         text: "Exposition",
-        university: 0,
-        ego: 0,
-        money: 0,
-        people: 0,
+        value: 0,
       },
     ],
   },
@@ -368,17 +260,11 @@ const examQuestions = [
     answers: [
       {
         text: "In an obvious manner",
-        university: -60,
-        ego: 0,
-        money: 0,
-        people: 0,
+        value: 1,
       },
       {
         text: "In a discreet manner",
-        university: 0,
-        ego: 0,
-        money: 0,
-        people: 0,
+        value: 0,
       },
     ],
   },
@@ -389,17 +275,11 @@ const examQuestions = [
     answers: [
       {
         text: "At once",
-        university: -60,
-        ego: 0,
-        money: 0,
-        people: 0,
+        value: 1,
       },
       {
         text: "Progressively",
-        university: 0,
-        ego: 0,
-        money: 0,
-        people: 0,
+        value: 0,
       },
     ],
   },
@@ -410,17 +290,11 @@ const examQuestions = [
     answers: [
       {
         text: "Describe his appearence and behaviour in every detail",
-        university: -60,
-        ego: 0,
-        money: 0,
-        people: 0,
+        value: 1,
       },
       {
         text: "Only give details that are necessary to the story",
-        university: 0,
-        ego: 0,
-        money: 0,
-        people: 0,
+        value: 0,
       },
     ],
   },
@@ -430,17 +304,11 @@ const examQuestions = [
     answers: [
       {
         text: "When the audience has better knowledge of the facts then the character",
-        university: 0,
-        ego: 0,
-        money: 0,
-        people: 0,
+        value: 0,
       },
       {
         text: "An amusing resolution of a dramatic situation",
-        university: -60,
-        ego: 0,
-        money: 0,
-        people: 0,
+        value: 1,
       },
     ],
   },
@@ -451,17 +319,11 @@ const examQuestions = [
     answers: [
       {
         text: "Suspense",
-        university: 0,
-        ego: 0,
-        money: 0,
-        people: 0,
+        value: 0,
       },
       {
         text: "Dramatic tension",
-        university: -60,
-        ego: 0,
-        money: 0,
-        people: 0,
+        value: 1,
       },
     ],
   },
@@ -471,17 +333,11 @@ const examQuestions = [
     answers: [
       {
         text: "Flashforward",
-        university: -60,
-        ego: 0,
-        money: 0,
-        people: 0,
+        value: 1,
       },
       {
         text: "Plant",
-        university: 0,
-        ego: 0,
-        money: 0,
-        people: 0,
+        value: 0,
       },
     ],
   },
@@ -491,17 +347,11 @@ const examQuestions = [
     answers: [
       {
         text: "Climax",
-        university: -60,
-        ego: 0,
-        money: 0,
-        people: 0,
+        value: 1,
       },
       {
         text: "Payoff",
-        university: 0,
-        ego: 0,
-        money: 0,
-        people: 0,
+        value: 0,
       },
     ],
   },
@@ -511,17 +361,11 @@ const examQuestions = [
     answers: [
       {
         text: "They are separated by screentime",
-        university: 0,
-        ego: 0,
-        money: 0,
-        people: 0,
+        value: 0,
       },
       {
         text: "The payoff happens immediately after planting",
-        university: -60,
-        ego: 0,
-        money: 0,
-        people: 0,
+        vallue: 1,
       },
     ],
   },
@@ -531,17 +375,11 @@ const examQuestions = [
     answers: [
       {
         text: "To leave the audience with a cliffhanger",
-        university: -60,
-        ego: 0,
-        money: 0,
-        people: 0,
+        value: 1,
       },
       {
         text: "To tie up loose ends and provide closure",
-        university: 0,
-        ego: 0,
-        money: 0,
-        people: 0,
+        value: 0,
       },
     ],
   },
@@ -551,17 +389,11 @@ const examQuestions = [
     answers: [
       {
         text: "To resolve the central conflict",
-        university: 0,
-        ego: 0,
-        money: 0,
-        people: 0,
+        value: 0,
       },
       {
         text: "To establish the theme of the story",
-        university: -60,
-        ego: 0,
-        money: 0,
-        people: 0,
+        value: 1,
       },
     ],
   },
@@ -571,17 +403,11 @@ const examQuestions = [
     answers: [
       {
         text: "To introduce the main characters",
-        university: -60,
-        ego: 0,
-        money: 0,
-        people: 0,
+        value: 1,
       },
       {
         text: "To kickstart the central conflict",
-        university: 0,
-        ego: 0,
-        money: 0,
-        people: 0,
+        value: 0,
       },
     ],
   },
@@ -591,17 +417,11 @@ const examQuestions = [
     answers: [
       {
         text: "Youyr contract with the viewer stating you'll make a worthy film",
-        university: -60,
-        ego: 0,
-        money: 0,
-        people: 0,
+        value: 1,
       },
       {
         text: "The viewer gives you his time and money and you entertain him",
-        university: 0,
-        ego: 0,
-        money: 0,
-        people: 0,
+        value: 0,
       },
     ],
   },
@@ -612,17 +432,11 @@ const examQuestions = [
     answers: [
       {
         text: "Action",
-        university: 0,
-        ego: 0,
-        money: 0,
-        people: 0,
+        value: 0,
       },
       {
         text: "Time and place",
-        university: -60,
-        ego: 0,
-        money: 0,
-        people: 0,
+        value: 1,
       },
     ],
   },

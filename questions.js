@@ -342,7 +342,7 @@ const questions = [
         text: "Never!",
         university: 0,
         ego: 0,
-        money: 10,
+        money: 0,
         people: 0,
       },
     ],

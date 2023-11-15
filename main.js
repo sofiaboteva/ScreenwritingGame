@@ -34,26 +34,15 @@ scene("game", () => {
   let egoScore = 40;
   let moneyScore = 40;
   let peopleScore = 40;
+
+  let examFailedScore = 0;
+
   const examLabel = add([text(""), pos(width() / 2, 200), anchor("center")]);
+  //const examFailedLabel = add([text(""), pos(width() / 2, 150)]);
 
   let currentQuestionIndex = 1;
   let examQuestionIndex = 1;
   let examcounter = 1;
-
-  // const questionIndexLabel = add([
-  //   text(`questionIndex: ${currentQuestionIndex}`),
-  //   pos(24, 140),
-  // ]);
-
-  // const examQuestionIndexLabel = add([
-  //   text(`examQuestionIndex: ${examQuestionIndex}`),
-  //   pos(24, 170),
-  // ]);
-
-  // const examcounterLabel = add([
-  //   text(`examcounter: ${examcounter}`),
-  //   pos(24, 200),
-  // ]);
 
   const universityScoreLabel = add([
     text(`University: ${universityScore}`),
@@ -98,6 +87,7 @@ scene("game", () => {
 
   function showQuestion(question) {
     examLabel.text = "";
+    //examFailedLabel.text = "";
     questionElement.text = question.question;
     question.answers.forEach((answer, index) => {
       let button = add([
@@ -137,7 +127,8 @@ scene("game", () => {
   }
 
   function showExamQuestion(question) {
-    examLabel.text = "Exam time!";
+    examLabel.text = `Exam time! Questions failed: ${examFailedScore}`;
+    //examFailedLabel.text = `Exams failed: ${examFailedScore}`;
     questionElement.text = question.question;
     question.answers.forEach((answer, index) => {
       let button = add([
@@ -155,13 +146,13 @@ scene("game", () => {
         color(0, 0, 0),
       ]);
 
-      button.value = answer.university;
+      button.value = answer.value;
 
       button.onClick(() => {
         if (isLocked) return; // If locked, do not process the click
 
         isLocked = true; // Lock input processing once the button is clicked
-        selectExamAnswer(answer.university);
+        selectExamAnswer(answer.value);
       });
 
       answerButtons.push(button);
@@ -169,11 +160,6 @@ scene("game", () => {
   }
 
   function selectAnswer(university, ego, money, people) {
-    console.log(university);
-    console.log(ego);
-    console.log(money);
-    console.log(people);
-
     universityScore += university;
     egoScore += ego;
     moneyScore += money;
@@ -244,22 +230,20 @@ scene("game", () => {
     }
   }
 
-  function selectExamAnswer(university) {
+  function selectExamAnswer(value) {
     examQuestionIndex++;
     examcounter++;
-    universityScore += university;
+    //universityScore += university;
+    examFailedScore += value;
+    //examFailedLabel.text = `Questions failed: ${examFailedScore}`;
+    examLabel.text = `Exam time! Questions failed: ${examFailedScore}`;
 
     // examQuestionIndexLabel.text = `examquestionIndex: ${examQuestionIndex}`;
     // examcounterLabel.text = `examcounter: ${examcounter}`;
 
-    if (shuffledQuestions.length > examQuestionIndex && 0 < universityScore) {
+    if (shuffledQuestions.length > examQuestionIndex && examFailedScore < 3) {
       wait(0.05, setNextQuestion);
-    }
-    // if (
-    //   shuffledQuestions.length > examQuestionIndex &&
-    //   universityScore <= 0
-    // )
-    else {
+    } else {
       go("universityLow");
     }
   }
