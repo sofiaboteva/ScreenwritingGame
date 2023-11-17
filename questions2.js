@@ -4,17 +4,17 @@ const questions2 = [
     answers: [
       {
         text: "Sure, let's go viral!",
-        relationships: 0,
         fame: 0,
         ego: -10,
         money: 10,
+        relationships: 0,
       },
       {
         text: "No thanks, I'm holding out for Netflix.",
-        relationships: 0,
         fame: -10,
         ego: 10,
         money: 0,
+        relationships: 0,
       },
     ],
   },
@@ -25,17 +25,17 @@ const questions2 = [
     answers: [
       {
         text: "Whatever it takes to get it on screen.",
-        relationships: 10,
         fame: 10,
         ego: -10,
         money: 10,
+        relationships: 10,
       },
       {
         text: "I'm more Shakespeare than Seinfeld.",
-        relationships: -10,
         fame: -10,
         ego: 10,
         money: 0,
+        relationships: -10,
       },
     ],
   },
@@ -46,17 +46,17 @@ const questions2 = [
     answers: [
       {
         text: "For the love of art and Iceland, absolutely!",
-        relationships: 10,
         fame: 0,
         ego: 10,
         money: -10,
+        relationships: 10,
       },
       {
         text: "I'm not a fan of the 'starving artist' concept",
-        relationships: -10,
         fame: 0,
         ego: 0,
         money: 0,
+        relationships: -10,
       },
     ],
   },
@@ -67,17 +67,17 @@ const questions2 = [
     answers: [
       {
         text: "I'm in. With me on board we'll rock this franchise",
-        relationships: 0,
         fame: 10,
         ego: -10,
         money: 20,
+        relationships: 0,
       },
       {
         text: "Am I a joke to you?",
-        relationships: -10,
         fame: 0,
         ego: 10,
         money: 0,
+        relationships: -10,
       },
     ],
   },
@@ -88,17 +88,17 @@ const questions2 = [
     answers: [
       {
         text: "Absolutely. This story needs to be told.",
-        relationships: 0,
         fame: 10,
         ego: 20,
         money: -20,
+        relationships: 0,
       },
       {
         text: "Maybe later. I guess it's too avant-garde for now.",
-        relationships: 0,
         fame: 0,
         ego: -10,
         money: 0,
+        relationships: 0,
       },
     ],
   },
@@ -109,17 +109,17 @@ const questions2 = [
     answers: [
       {
         text: "Sorry, I'm going with my girlfriend",
-        relationships: 10,
         fame: -10,
         ego: 0,
         money: 0,
+        relationships: 10,
       },
       {
         text: "Won't miss this chance",
-        relationships: -10,
         fame: 10,
         ego: 10,
         money: 0,
+        relationships: -10,
       },
     ],
   },
@@ -130,17 +130,17 @@ const questions2 = [
     answers: [
       {
         text: "Need to tell them the truth",
-        relationships: 10,
         fame: -20,
         ego: 0,
         money: 0,
+        relationships: 10,
       },
       {
         text: "Fame does come with its own script, doesn't it?",
-        relationships: -20,
         fame: 10,
         ego: 0,
         money: 0,
+        relationships: -20,
       },
     ],
   },
@@ -151,17 +151,17 @@ const questions2 = [
     answers: [
       {
         text: "Fine, as long as I get paid, they can ignore me",
-        relationships: 0,
         fame: 0,
         ego: -10,
         money: 10,
+        relationships: 0,
       },
       {
         text: "Make a scene and quit. There are better scripts to write!",
-        relationships: -10,
         fame: 0,
         ego: 10,
         money: -10,
+        relationships: -10,
       },
     ],
   },
@@ -172,38 +172,38 @@ const questions2 = [
     answers: [
       {
         text: "Grab it quickly, can't let it slip away.",
-        relationships: 10,
         fame: 0,
         ego: 0,
-        money: 0,
+        money: 10,
+        relationships: 10,
       },
       {
         text: "Wait for other offers to pick the best one.",
-        relationships: -10,
         fame: 0,
         ego: 10,
         money: 0,
+        relationships: -10,
       },
     ],
   },
 
   {
     question:
-      "Producer:Your drama's ending is too intense. Audiences prefer happy endings",
+      "Producer: Your drama's ending is too intense. Audiences prefer happy endings",
     answers: [
       {
         text: "Your money, your call. Happy ending it is.",
-        relationships: 10,
         fame: 10,
         ego: -10,
         money: 0,
+        relationships: 10,
       },
       {
         text: "Life's not always a fairytale. The ending stays.",
-        relationships: -10,
         fame: -10,
         ego: 10,
         money: 0,
+        relationships: -10,
       },
     ],
   },
@@ -214,17 +214,17 @@ const questions2 = [
     answers: [
       {
         text: "Send it",
-        relationships: 10,
         fame: 0,
         ego: -10,
         money: 0,
+        relationships: 10,
       },
       {
         text: "Lie that the producer's too busy",
-        relationships: -10,
         fame: 0,
         ego: 10,
         money: 0,
+        relationships: -10,
       },
     ],
   },
@@ -235,17 +235,17 @@ const questions2 = [
     answers: [
       {
         text: "Buy that dream gift for your girlfriend.",
-        relationships: 10,
         fame: 0,
         ego: 0,
         money: -10,
+        relationships: 10,
       },
       {
         text: "Fund your new indie movie project.",
-        relationships: 0,
         fame: 0,
         ego: 10,
         money: -10,
+        relationships: 0,
       },
     ],
   },
@@ -255,17 +255,17 @@ const questions2 = [
     answers: [
       {
         text: "Sure, let's see what you've got!",
-        relationships: 10,
         fame: 0,
         ego: 0,
         money: 0,
+        relationships: 10,
       },
       {
         text: "Hold off for a big-name director.",
-        relationships: -10,
         fame: 0,
         ego: 10,
         money: 0,
+        relationships: -10,
       },
     ],
   },
@@ -275,17 +275,17 @@ const questions2 = [
     answers: [
       {
         text: "Demand equal pay or walk out.",
-        relationships: -10,
         fame: 0,
         ego: 10,
         money: 0,
+        relationships: -10,
       },
       {
         text: "Just happy to be on the payroll!",
-        relationships: 0,
         fame: 0,
         ego: -10,
         money: 10,
+        relationships: 0,
       },
     ],
   },
@@ -296,17 +296,17 @@ const questions2 = [
     answers: [
       {
         text: "Sorry, I'll rewrite it right away.",
-        relationships: 10,
         fame: 0,
         ego: -10,
         money: 0,
+        relationships: 10,
       },
       {
         text: "It's art imitating life, isn't it fascinating?",
-        relationships: -10,
         fame: 0,
         ego: 10,
         money: 0,
+        relationships: -10,
       },
     ],
   },
@@ -317,17 +317,17 @@ const questions2 = [
     answers: [
       {
         text: "All publicity is good!",
-        relationships: 0,
         fame: 10,
-        ego: 0,
+        ego: -10,
         money: 0,
+        relationships: 0,
       },
       {
         text: "Step in and set the record straight.",
-        relationships: 0,
         fame: -10,
         ego: 10,
         money: 0,
+        relationships: 0,
       },
     ],
   },
@@ -338,17 +338,17 @@ const questions2 = [
     answers: [
       {
         text: "Write it, everyone has a price.",
-        relationships: 0,
         fame: 0,
         ego: -10,
         money: 20,
+        relationships: 0,
       },
       {
-        text: "No selling out, stick to art.",
-        relationships: 0,
+        text: "No selling out.",
         fame: 0,
         ego: 10,
         money: -10,
+        relationships: 0,
       },
     ],
   },
@@ -359,17 +359,17 @@ const questions2 = [
     answers: [
       {
         text: "Sure, every scene gets a gadget cameo!",
-        relationships: 0,
         fame: 0,
         ego: -10,
         money: 10,
+        relationships: 0,
       },
       {
         text: "No way, art isn't for sale.",
-        relationships: 0,
         fame: 0,
         ego: 10,
         money: -10,
+        relationships: 0,
       },
     ],
   },
@@ -380,17 +380,17 @@ const questions2 = [
     answers: [
       {
         text: "Hit the party, it's a once-in-a-lifetime chance!",
-        relationships: -10,
         fame: 10,
         ego: 0,
         money: 0,
+        relationships: -10,
       },
       {
         text: "Go to the wedding. Besties before celebs.",
-        relationships: 10,
         fame: 0,
         ego: 0,
         money: 0,
+        relationships: 10,
       },
     ],
   },
@@ -401,17 +401,17 @@ const questions2 = [
     answers: [
       {
         text: "Agree. Who needs words when you have speed?",
-        relationships: 10,
         fame: 10,
         ego: -10,
         money: 0,
+        relationships: 10,
       },
       {
         text: "The whole movie has no sense without this dialogue",
-        relationships: -10,
         fame: 0,
         ego: 10,
         money: 0,
+        relationships: -10,
       },
     ],
   },
@@ -422,17 +422,17 @@ const questions2 = [
     answers: [
       {
         text: "Thanks, family bank!",
-        relationships: 0,
         fame: 0,
         ego: -10,
         money: 10,
+        relationships: 0,
       },
       {
         text: "Nope, I'll earn my keep.",
-        relationships: 0,
         fame: 0,
-        ego: -10,
-        money: 10,
+        ego: 10,
+        money: -10,
+        relationships: 0,
       },
     ],
   },
