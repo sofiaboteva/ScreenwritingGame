@@ -13,7 +13,6 @@ const mediationQuestions = [
       },
     ],
   },
-
   {
     question:
       "Which author's work on the monomyth or 'The Hero's Journey' heavily influenced Christopher Vogler's 'The Writer's Journey'?",
@@ -137,11 +136,11 @@ const mediationQuestions = [
     answers: [
       {
         text: "Introduce the main characters and the world",
-        value: 0,
+        value: 1,
       },
       {
         text: "Resolve all the conflicts presented in the series",
-        value: 1,
+        value: 0,
       },
     ],
   },
@@ -254,7 +253,7 @@ const mediationQuestions = [
         value: 0,
       },
       {
-        text: "First Draft",
+        text: "Treatment",
         value: 1,
       },
     ],
@@ -299,6 +298,149 @@ const mediationQuestions = [
       {
         text: "Synopsis",
         value: 1,
+      },
+    ],
+  },
+
+  {
+    question: "What is the main goal of a pitch meeting for a screenwriter?",
+    answers: [
+      {
+        text: "To present the story idea to secure interest or funding.",
+        value: 0,
+      },
+      {
+        text: "To gather feedback on the script's first draft",
+        value: 1,
+      },
+    ],
+  },
+
+  {
+    question:
+      "Is it appropriate for a spec script to include specific camera shot directions?",
+    answers: [
+      {
+        text: "Yes, it's important to indicate camera movements",
+        value: 1,
+      },
+      {
+        text: "Camera directions are typically left for shooting scripts",
+        value: 0,
+      },
+    ],
+  },
+
+  {
+    question: "What are the font requirements for standard screenplay format?",
+    answers: [
+      {
+        text: "14-point Calibry font size ",
+        value: 1,
+      },
+      {
+        text: "12-point Courier font size",
+        value: 0,
+      },
+    ],
+  },
+
+  {
+    question: "The standard length of a feature-film script is usually:",
+    answers: [
+      {
+        text: "90-120 pages",
+        value: 0,
+      },
+      {
+        text: "200-240 pages",
+        value: 1,
+      },
+    ],
+  },
+
+  {
+    question: "What is a 'spec script'?",
+    answers: [
+      {
+        text: "A script written without a commission or contract.",
+        value: 0,
+      },
+      {
+        text: "A script written under contract for a studio.",
+        value: 0,
+      },
+    ],
+  },
+
+  {
+    question:
+      "When a character's name appear in the action lines it should be written in capital letters…?",
+    answers: [
+      {
+        text: "Always",
+        value: 1,
+      },
+      {
+        text: "Only for the first time they are introduced",
+        value: 0,
+      },
+    ],
+  },
+
+  {
+    question: "What is the purpose of a parenthetical in dialogue?",
+    answers: [
+      {
+        text: "To indicate who the character is speaking to",
+        value: 1,
+      },
+      {
+        text: "To provide direction on how the line should be delivered",
+        value: 0,
+      },
+    ],
+  },
+
+  {
+    question: "Action lines should be written ",
+    answers: [
+      {
+        text: "In past tense ",
+        value: 1,
+      },
+      {
+        text: "In present tense ",
+        value: 0,
+      },
+    ],
+  },
+
+  {
+    question:
+      "Which software is commonly used by screenwriters for script formatting?",
+    answers: [
+      {
+        text: "Final Draft",
+        value: 0,
+      },
+      {
+        text: "Microsoft Excel",
+        value: 1,
+      },
+    ],
+  },
+
+  {
+    question: "What comes first in film making processs? ?",
+    answers: [
+      {
+        text: "Pre-production",
+        value: 1,
+      },
+      {
+        text: "Development",
+        value: 0,
       },
     ],
   },

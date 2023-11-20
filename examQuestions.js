@@ -416,7 +416,7 @@ const examQuestions = [
     question: "What does contract with the audience mean?",
     answers: [
       {
-        text: "Youyr contract with the viewer stating you'll make a worthy film",
+        text: "Contract with the viewer stating you'll make a worthy film",
         value: 1,
       },
       {

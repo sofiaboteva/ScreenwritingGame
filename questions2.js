@@ -4,7 +4,7 @@ const questions2 = [
     answers: [
       {
         text: "Sure, let's go viral!",
-        fame: 0,
+        fame: 10,
         ego: -10,
         money: 10,
         relationships: 0,
@@ -103,26 +103,26 @@ const questions2 = [
     ],
   },
 
-  {
-    question:
-      "Young Famous Actress: Will you go to our movie premiere together?",
-    answers: [
-      {
-        text: "Sorry, I'm going with my girlfriend",
-        fame: -10,
-        ego: 0,
-        money: 0,
-        relationships: 10,
-      },
-      {
-        text: "Won't miss this chance",
-        fame: 10,
-        ego: 10,
-        money: 0,
-        relationships: -10,
-      },
-    ],
-  },
+  // {
+  //   question:
+  //     "Young Famous Actress: Will you go to our movie premiere together?",
+  //   answers: [
+  //     {
+  //       text: "Sorry, I'm going with my girlfriend",
+  //       fame: -10,
+  //       ego: 0,
+  //       money: 0,
+  //       relationships: 10,
+  //     },
+  //     {
+  //       text: "Won't miss this chance",
+  //       fame: 10,
+  //       ego: 10,
+  //       money: 0,
+  //       relationships: -10,
+  //     },
+  //   ],
+  // },
 
   {
     question:
@@ -395,26 +395,26 @@ const questions2 = [
     ],
   },
 
-  {
-    question:
-      "The director finds your favorite dialogue scene boring and suggests replacing it with a car chase.",
-    answers: [
-      {
-        text: "Agree. Who needs words when you have speed?",
-        fame: 10,
-        ego: -10,
-        money: 0,
-        relationships: 10,
-      },
-      {
-        text: "The whole movie has no sense without this dialogue",
-        fame: 0,
-        ego: 10,
-        money: 0,
-        relationships: -10,
-      },
-    ],
-  },
+  // {
+  //   question:
+  //     "The director finds your favorite dialogue scene boring and suggests replacing it with a car chase.",
+  //   answers: [
+  //     {
+  //       text: "Agree. Who needs words when you have speed?",
+  //       fame: 10,
+  //       ego: -10,
+  //       money: 0,
+  //       relationships: 10,
+  //     },
+  //     {
+  //       text: "The whole movie has no sense without this dialogue",
+  //       fame: 0,
+  //       ego: 10,
+  //       money: 0,
+  //       relationships: -10,
+  //     },
+  //   ],
+  // },
 
   {
     question:

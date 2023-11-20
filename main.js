@@ -1,3 +1,9 @@
+/* questions = 19
+ examquestions = 31
+ 
+ questions2 = 22
+mediationquestions = 30 */
+
 import questions from "/questions.js";
 import questions2 from "/questions2.js";
 import examQuestions from "/examQuestions.js";
@@ -248,7 +254,6 @@ scene("level1", () => {
   function selectExamAnswer(value) {
     examQuestionIndex++;
     examcounter++;
-    //universityScore += university;
     examFailedScore += value;
     //examFailedLabel.text = `Questions failed: ${examFailedScore}`;
     examLabel.text = `Exam time! Questions failed: ${examFailedScore}`;
@@ -437,7 +442,7 @@ scene("level2", () => {
       go("fameHigh");
     } else if (
       shuffledQuestions.length > currentQuestionIndex &&
-      universityScore <= 0
+      fameScore <= 0
     ) {
       go("fameLow");
     } else if (
@@ -497,7 +502,7 @@ scene("level2", () => {
   }
 });
 
-scene("interviewFailed", () => {
+scene("failedInterview", () => {
   add([
     text(
       "You've failed another job interview. It's becoming clear: maybe it's time to hit the books and truly learn about the industry you're diving into?",
