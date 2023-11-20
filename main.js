@@ -1,9 +1,3 @@
-/* questions = 19
- examquestions = 31
- 
- questions2 = 22
-mediationquestions = 30 */
-
 import questions from "/questions.js";
 import questions2 from "/questions2.js";
 import examQuestions from "/examQuestions.js";
