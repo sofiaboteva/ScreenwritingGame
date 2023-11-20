@@ -84,7 +84,7 @@ const questions2 = [
 
   {
     question:
-      "Agent:Your script is so 'cinema d'auteur' that nobody wants to shoot it. Will you shoot it yourself?",
+      "Agent: Your script is so 'cinema d'auteur' that nobody wants to shoot it. Will you shoot it yourself?",
     answers: [
       {
         text: "Absolutely. This story needs to be told.",
@@ -348,7 +348,7 @@ const questions2 = [
         fame: 0,
         ego: 10,
         money: -10,
-        relationships: 0,
+        relationships: -10,
       },
     ],
   },

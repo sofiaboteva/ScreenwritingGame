@@ -1,6 +1,7 @@
 import questions from "/questions.js";
 import questions2 from "/questions2.js";
 import examQuestions from "/examQuestions.js";
+import mediationQuestions from "/mediationquestions.js";
 let isLocked = false;
 
 kaboom({
@@ -10,7 +11,7 @@ kaboom({
 });
 
 scene("start", () => {
-  const startButton = add([
+  const startButton1 = add([
     rect(240, 80, { radius: 8 }),
     pos(width() / 2, 150),
     area(),
@@ -19,10 +20,24 @@ scene("start", () => {
     outline(4),
   ]);
 
-  startButton.add([text("Start"), anchor("center"), color(0, 0, 0)]);
+  const startButton2 = add([
+    rect(240, 80, { radius: 8 }),
+    pos(width() / 2, 250),
+    area(),
+    scale(1),
+    anchor("center"),
+    outline(4),
+  ]);
 
-  startButton.onClick(() => {
-    go("win");
+  startButton1.add([text("Level 1"), anchor("center"), color(0, 0, 0)]);
+  startButton2.add([text("Level 2"), anchor("center"), color(0, 0, 0)]);
+
+  startButton1.onClick(() => {
+    go("level1");
+  });
+
+  startButton2.onClick(() => {
+    go("level2");
   });
 });
 
@@ -80,7 +95,6 @@ scene("level1", () => {
     } else {
       // Show a regular question
       examcounter = 1;
-      // examcounterLabel.text = `examcounter: ${examcounter}`;
 
       showQuestion(shuffledQuestions[currentQuestionIndex]);
     }
@@ -90,7 +104,6 @@ scene("level1", () => {
 
   function showQuestion(question) {
     examLabel.text = "";
-    //examFailedLabel.text = "";
     questionElement.text = question.question;
     question.answers.forEach((answer, index) => {
       let button = add([
@@ -131,7 +144,6 @@ scene("level1", () => {
 
   function showExamQuestion(question) {
     examLabel.text = `Exam time! Questions failed: ${examFailedScore}`;
-    //examFailedLabel.text = `Exams failed: ${examFailedScore}`;
     questionElement.text = question.question;
     question.answers.forEach((answer, index) => {
       let button = add([
@@ -229,7 +241,7 @@ scene("level1", () => {
     ) {
       go("relationshipsLow");
     } else {
-      go("win");
+      go("win1");
     }
   }
 
@@ -264,13 +276,17 @@ scene("level2", () => {
   let moneyScore = 40;
   let relationshipsScore = 40;
 
-  let examFailedScore = 0;
+  let mediationFailedScore = 0;
 
-  const examLabel = add([text(""), pos(width() / 2, 200), anchor("center")]);
+  const mediationLabel = add([
+    text(""),
+    pos(width() / 2, 200),
+    anchor("center"),
+  ]);
 
   let currentQuestionIndex = 1;
-  let examQuestionIndex = 1;
-  let examcounter = 1;
+  let mediationQuestionIndex = 1;
+  let mediationcounter = 1;
 
   const fameScoreLabel = add([text(`Fame: ${fameScore}`), pos(24, 20)]);
   const egoScoreLabel = add([text(`Ego: ${egoScore}`), pos(24, 50)]);
@@ -292,19 +308,21 @@ scene("level2", () => {
 
   let shuffledQuestions = questions2.sort(() => Math.random() - 0.5);
 
-  let shuffledExamQuestions = examQuestions.sort(() => Math.random() - 0.5);
+  let shuffledMediationQuestions = mediationQuestions.sort(
+    () => Math.random() - 0.5
+  );
 
   setNextQuestion();
 
   function setNextQuestion() {
     resetState();
 
-    if (currentQuestionIndex % 5 === 0 && examcounter <= 5) {
+    if (currentQuestionIndex % 5 === 0 && mediationcounter <= 5) {
       // Show a special question here
-      showExamQuestion(shuffledExamQuestions[examQuestionIndex]);
+      showMediationQuestion(shuffledMediationQuestions[mediationQuestionIndex]);
     } else {
       // Show a regular question
-      examcounter = 1;
+      mediationcounter = 1;
       // examcounterLabel.text = `examcounter: ${examcounter}`;
 
       showQuestion(shuffledQuestions[currentQuestionIndex]);
@@ -314,8 +332,8 @@ scene("level2", () => {
   }
 
   function showQuestion(question) {
-    examLabel.text = "";
-    //examFailedLabel.text = "";
+    mediationLabel.text = "";
+
     questionElement.text = question.question;
     question.answers.forEach((answer, index) => {
       let button = add([
@@ -354,9 +372,8 @@ scene("level2", () => {
     });
   }
 
-  function showExamQuestion(question) {
-    examLabel.text = `Exam time! Questions failed: ${examFailedScore}`;
-    //examFailedLabel.text = `Exams failed: ${examFailedScore}`;
+  function showMediationQuestion(question) {
+    mediationLabel.text = `Job interview! Questions failed: ${mediationFailedScore}`;
     questionElement.text = question.question;
     question.answers.forEach((answer, index) => {
       let button = add([
@@ -380,7 +397,7 @@ scene("level2", () => {
         if (isLocked) return; // If locked, do not process the click
 
         isLocked = true; // Lock input processing once the button is clicked
-        selectExamAnswer(answer.value);
+        selectMediationAnswer(answer.value);
       });
 
       answerButtons.push(button);
@@ -454,23 +471,23 @@ scene("level2", () => {
     ) {
       go("relationshipsLow");
     } else {
-      go("win");
+      go("win2");
     }
   }
 
-  function selectExamAnswer(value) {
-    examQuestionIndex++;
-    examcounter++;
-    examFailedScore += value;
-    examLabel.text = `Exam time! Questions failed: ${examFailedScore}`;
+  function selectMediationAnswer(value) {
+    mediationQuestionIndex++;
+    mediationcounter++;
+    mediationFailedScore += value;
+    mediationLabel.text = `Job interview! Questions failed: ${mediationFailedScore}`;
 
-    // examQuestionIndexLabel.text = `examquestionIndex: ${examQuestionIndex}`;
-    // examcounterLabel.text = `examcounter: ${examcounter}`;
-
-    if (shuffledQuestions.length > examQuestionIndex && examFailedScore < 3) {
+    if (
+      shuffledQuestions.length > mediationQuestionIndex &&
+      mediationFailedScore < 3
+    ) {
       wait(0.05, setNextQuestion);
     } else {
-      go("fameLow");
+      go("failedInterview");
     }
   }
 
@@ -480,10 +497,28 @@ scene("level2", () => {
   }
 });
 
+scene("interviewFailed", () => {
+  add([
+    text(
+      "You've failed another job interview. It's becoming clear: maybe it's time to hit the books and truly learn about the industry you're diving into?",
+      {
+        width: width() - 500,
+        wrap: true,
+        size: 30,
+      }
+    ),
+    pos(width() / 2, 300),
+    anchor("center"),
+  ]);
+
+  onKeyPress("space", () => go("start"));
+  onClick(() => go("level1"));
+});
+
 scene("fameHigh", () => {
   add([
     text(
-      "You pursue an academic career and eventually become a professor. You've written a book about screenwriting but have never made any movie. You feel like a fraud.",
+      "Congrats, you're now a star! Paparazzi follow you everywhere, your Oscar speech is ready, but you're too busy attending VIP parties to actually write a script that wins one.",
       {
         width: width() - 500,
         wrap: true,
@@ -555,7 +590,7 @@ scene("relationshipsHigh", () => {
 scene("fameLow", () => {
   add([
     text(
-      "You drop out of university and become a bartender. You're now a master of mixing drinks and stories, and the local drunkards can't get enough of both.",
+      "You perfectly proved your point that your movies are 'for art, not audiences': the only person who attended your big movie premiere was your mum - only to ask when you are getting a real job.",
       {
         width: width() - 500,
         wrap: true,
@@ -624,7 +659,7 @@ scene("relationshipsLow", () => {
   onClick(() => go("level1"));
 });
 
-scene("win", () => {
+scene("win1", () => {
   add([
     text(
       "You successfully graduate from university, having written some great shorts and forged valuable connections. But beware, this is only Act One of your life journey.",
@@ -651,5 +686,35 @@ scene("win", () => {
 
   nextLevelButton.onClick(() => {
     go("level2");
+  });
+});
+
+scene("win2", () => {
+  add([
+    text(
+      "Great job! Your scripts are starting to turn heads, and your name is beginning to echo in industry circles. Bigger challenges and grander opportunities are just around the corner, but can you handle them?",
+      {
+        width: width() - 500,
+        wrap: true,
+        size: 30,
+      }
+    ),
+    pos(width() / 2, 300),
+    anchor("center"),
+  ]);
+
+  const nextLevelButton = add([
+    rect(240, 80, { radius: 8 }),
+    pos(width() / 2, 450),
+    area(),
+    scale(1),
+    anchor("center"),
+    outline(4),
+  ]);
+
+  nextLevelButton.add([text("Main page"), anchor("center"), color(0, 0, 0)]);
+
+  nextLevelButton.onClick(() => {
+    go("start");
   });
 });

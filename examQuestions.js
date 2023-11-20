@@ -200,7 +200,7 @@ const examQuestions = [
 
   {
     question:
-      "The unnessessary for the story action thar is removed from the scene by editing are called...",
+      "The unnessessary for the story action that is removed from the scene by editing are called...",
     answers: [
       {
         text: "Timelapse",
