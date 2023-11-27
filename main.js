@@ -2,7 +2,9 @@ import questions from "/questions.js";
 import questions2 from "/questions2.js";
 import examQuestions from "/examQuestions.js";
 import mediationQuestions from "/mediationquestions.js";
+
 let isLocked = false;
+let endingsScore = 0;
 
 kaboom({
   background: [0, 0, 0],
@@ -29,8 +31,22 @@ scene("start", () => {
     outline(4),
   ]);
 
+  const AchievementsButton = add([
+    rect(240, 80, { radius: 8 }),
+    pos(width() / 2, 350),
+    area(),
+    scale(1),
+    anchor("center"),
+    outline(4),
+  ]);
+
   startButton1.add([text("Level 1"), anchor("center"), color(0, 0, 0)]);
   startButton2.add([text("Level 2"), anchor("center"), color(0, 0, 0)]);
+  AchievementsButton.add([
+    text("Achievements"),
+    anchor("center"),
+    color(0, 0, 0),
+  ]);
 
   startButton1.onClick(() => {
     go("level1");
@@ -38,6 +54,10 @@ scene("start", () => {
 
   startButton2.onClick(() => {
     go("level2");
+  });
+
+  AchievementsButton.onClick(() => {
+    go("achievements");
   });
 });
 
@@ -53,7 +73,6 @@ scene("level1", () => {
   let examFailedScore = 0;
 
   const examLabel = add([text(""), pos(width() / 2, 200), anchor("center")]);
-  //const examFailedLabel = add([text(""), pos(width() / 2, 150)]);
 
   let currentQuestionIndex = 1;
   let examQuestionIndex = 1;
@@ -497,6 +516,7 @@ scene("level2", () => {
 });
 
 scene("failedInterview", () => {
+  endingsScore++;
   add([
     text(
       "You've failed another job interview. It's becoming clear: maybe it's time to hit the books and truly learn about the industry you're diving into?",
@@ -511,10 +531,11 @@ scene("failedInterview", () => {
   ]);
 
   onKeyPress("space", () => go("start"));
-  onClick(() => go("level1"));
+  onClick(() => go("start"));
 });
 
 scene("fameHigh", () => {
+  endingsScore++;
   add([
     text(
       "Congrats, you're now a star! Paparazzi follow you everywhere, your Oscar speech is ready, but you're too busy attending VIP parties to actually write a script that wins one.",
@@ -529,10 +550,11 @@ scene("fameHigh", () => {
   ]);
 
   onKeyPress("space", () => go("start"));
-  onClick(() => go("level1"));
+  onClick(() => go("start"));
 });
 
 scene("egoHigh", () => {
+  endingsScore++;
   add([
     text(
       "You lose all your friends and leave university, persuaded that your scripts are underrated. You're a genius, but only in your mind. You end up making one-person shows that nobody buys tickets for.",
@@ -547,10 +569,11 @@ scene("egoHigh", () => {
   ]);
 
   onKeyPress("space", () => go("start"));
-  onClick(() => go("level1"));
+  onClick(() => go("start"));
 });
 
 scene("moneyHigh", () => {
+  endingsScore++;
   add([
     text(
       "You're lured by the glitter of money and bid farewell to your artistic dreams. You become a producer, but word on the street is that your bankroll is more mob-connected than your movie plots.",
@@ -565,10 +588,11 @@ scene("moneyHigh", () => {
   ]);
 
   onKeyPress("space", () => go("start"));
-  onClick(() => go("level1"));
+  onClick(() => go("start"));
 });
 
 scene("relationshipsHigh", () => {
+  endingsScore++;
   add([
     text(
       "Your desperate bid to please everyone turns you into a doormat. You end up writing tweets, desperately seeking likes and fleeting fame.",
@@ -583,10 +607,11 @@ scene("relationshipsHigh", () => {
   ]);
 
   onKeyPress("space", () => go("start"));
-  onClick(() => go("level1"));
+  onClick(() => go("start"));
 });
 
 scene("fameLow", () => {
+  endingsScore++;
   add([
     text(
       "You perfectly proved your point that your movies are 'for art, not audiences': the only person who attended your big movie premiere was your mum - only to ask when you are getting a real job.",
@@ -601,10 +626,11 @@ scene("fameLow", () => {
   ]);
 
   onKeyPress("space", () => go("start"));
-  onClick(() => go("level1"));
+  onClick(() => go("start"));
 });
 
 scene("egoLow", () => {
+  endingsScore++;
   add([
     text(
       "You don't know how to defend your point. Actually, you don't even know what your point is. You surrender to your parents' wishes and head off to law school.",
@@ -619,10 +645,11 @@ scene("egoLow", () => {
   ]);
 
   onKeyPress("space", () => go("start"));
-  onClick(() => go("level1"));
+  onClick(() => go("start"));
 });
 
 scene("moneyLow", () => {
+  endingsScore++;
   add([
     text(
       "You're so broke that you resort to stealing food. You get caught and end up in jail. On the bright side you'll have some stories to tell when you get out.",
@@ -637,10 +664,11 @@ scene("moneyLow", () => {
   ]);
 
   onKeyPress("space", () => go("start"));
-  onClick(() => go("level1"));
+  onClick(() => go("start"));
 });
 
 scene("relationshipsLow", () => {
+  endingsScore++;
   add([
     text(
       "People are afraid to deal with you. You end up alone, writing scripts that nobody will ever read and go crazy talking to your characters. At least they listen to you.",
@@ -655,10 +683,47 @@ scene("relationshipsLow", () => {
   ]);
 
   onKeyPress("space", () => go("start"));
-  onClick(() => go("level1"));
+  onClick(() => go("start"));
+});
+
+scene("universityLow", () => {
+  endingsScore++;
+  add([
+    text(
+      "You drop out of university and become a bartender. You're now a master of mixing drinks and stories, and the local drunkards can't get enough of both.",
+      {
+        width: width() - 500,
+        wrap: true,
+        size: 30,
+      }
+    ),
+    pos(width() / 2, 300),
+    anchor("center"),
+  ]);
+  onKeyPress("space", () => go("start"));
+  onClick(() => go("start"));
+});
+
+scene("universityHigh", () => {
+  endingsScore++;
+  add([
+    text(
+      "You pursue an academic career and eventually become a professor. You've written a book about screenwriting but have never made any movie. You feel like a fraud.",
+      {
+        width: width() - 500,
+        wrap: true,
+        size: 30,
+      }
+    ),
+    pos(width() / 2, 300),
+    anchor("center"),
+  ]);
+  onKeyPress("space", () => go("start"));
+  onClick(() => go("start"));
 });
 
 scene("win1", () => {
+  endingsScore++;
   add([
     text(
       "You successfully graduate from university, having written some great shorts and forged valuable connections. But beware, this is only Act One of your life journey.",
@@ -689,6 +754,7 @@ scene("win1", () => {
 });
 
 scene("win2", () => {
+  endingsScore++;
   add([
     text(
       "Great job! Your scripts are starting to turn heads, and your name is beginning to echo in industry circles. Bigger challenges and grander opportunities are just around the corner, but can you handle them?",
@@ -716,4 +782,30 @@ scene("win2", () => {
   nextLevelButton.onClick(() => {
     go("start");
   });
+});
+
+scene("achievements", () => {
+  const endingsButton = add([
+    rect(240, 80, { radius: 8 }),
+    pos(width() / 2, 150),
+    area(),
+    scale(1),
+    anchor("center"),
+    outline(4),
+  ]);
+
+  endingsButton.add([text("Endings"), anchor("center"), color(0, 0, 0)]);
+
+  endingsButton.onClick(() => {
+    go("endings");
+  });
+});
+
+scene("endings", () => {
+  const endingsScoreLabel = add([
+    text(`Endings Unclocked: ${endingsScore}`),
+    pos(24, 50),
+  ]);
+  onKeyPress("space", () => go("start"));
+  onClick(() => go("start"));
 });
