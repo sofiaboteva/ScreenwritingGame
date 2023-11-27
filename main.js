@@ -4,6 +4,21 @@ import examQuestions from "/examQuestions.js";
 import mediationQuestions from "/mediationquestions.js";
 
 let isLocked = false;
+let unlockedEndings = {
+  universityHigh: false,
+  universityLow: false,
+  egoHigh: false,
+  egoLow: false,
+  moneyHigh: false,
+  moneyLow: false,
+  relationshipsHigh: false,
+  relationshipsLow: false,
+  fameHigh: false,
+  fameLow: false,
+  win1: false,
+  win2: false,
+  failedInterview: false,
+};
 let endingsScore = 0;
 
 kaboom({
@@ -516,7 +531,10 @@ scene("level2", () => {
 });
 
 scene("failedInterview", () => {
-  endingsScore++;
+  if (!unlockedEndings.failedInterview) {
+    endingsScore++;
+    unlockedEndings.failedInterview = true;
+  }
   add([
     text(
       "You've failed another job interview. It's becoming clear: maybe it's time to hit the books and truly learn about the industry you're diving into?",
@@ -535,7 +553,10 @@ scene("failedInterview", () => {
 });
 
 scene("fameHigh", () => {
-  endingsScore++;
+  if (!unlockedEndings.fameHigh) {
+    endingsScore++;
+    unlockedEndings.fameHigh = true;
+  }
   add([
     text(
       "Congrats, you're now a star! Paparazzi follow you everywhere, your Oscar speech is ready, but you're too busy attending VIP parties to actually write a script that wins one.",
@@ -554,10 +575,13 @@ scene("fameHigh", () => {
 });
 
 scene("egoHigh", () => {
-  endingsScore++;
+  if (!unlockedEndings.egoHigh) {
+    endingsScore++;
+    unlockedEndings.egoHigh = true;
+  }
   add([
     text(
-      "You lose all your friends and leave university, persuaded that your scripts are underrated. You're a genius, but only in your mind. You end up making one-person shows that nobody buys tickets for.",
+      "You lose all your friends and connections, persuaded that your scripts are underrated. You're a genius, but only in your mind. You end up making one-person shows that nobody buys tickets for.",
       {
         width: width() - 500,
         wrap: true,
@@ -573,7 +597,10 @@ scene("egoHigh", () => {
 });
 
 scene("moneyHigh", () => {
-  endingsScore++;
+  if (!unlockedEndings.moneyHigh) {
+    endingsScore++;
+    unlockedEndings.moneyHigh = true;
+  }
   add([
     text(
       "You're lured by the glitter of money and bid farewell to your artistic dreams. You become a producer, but word on the street is that your bankroll is more mob-connected than your movie plots.",
@@ -592,7 +619,10 @@ scene("moneyHigh", () => {
 });
 
 scene("relationshipsHigh", () => {
-  endingsScore++;
+  if (!unlockedEndings.relationshipsHigh) {
+    endingsScore++;
+    unlockedEndings.relationshipsHigh = true;
+  }
   add([
     text(
       "Your desperate bid to please everyone turns you into a doormat. You end up writing tweets, desperately seeking likes and fleeting fame.",
@@ -611,7 +641,10 @@ scene("relationshipsHigh", () => {
 });
 
 scene("fameLow", () => {
-  endingsScore++;
+  if (!unlockedEndings.fameLow) {
+    endingsScore++;
+    unlockedEndings.fameLow = true;
+  }
   add([
     text(
       "You perfectly proved your point that your movies are 'for art, not audiences': the only person who attended your big movie premiere was your mum - only to ask when you are getting a real job.",
@@ -630,7 +663,10 @@ scene("fameLow", () => {
 });
 
 scene("egoLow", () => {
-  endingsScore++;
+  if (!unlockedEndings.egoLow) {
+    endingsScore++;
+    unlockedEndings.egoLow = true;
+  }
   add([
     text(
       "You don't know how to defend your point. Actually, you don't even know what your point is. You surrender to your parents' wishes and head off to law school.",
@@ -649,7 +685,18 @@ scene("egoLow", () => {
 });
 
 scene("moneyLow", () => {
-  endingsScore++;
+  if (!unlockedEndings.moneyLow) {
+    endingsScore++;
+    unlockedEndings.moneyLow = true;
+    add([
+      text("New achievement unlocked!", {
+        width: width() - 500,
+        size: 30,
+      }),
+      pos(width() / 2, 500),
+      anchor("center"),
+    ]);
+  }
   add([
     text(
       "You're so broke that you resort to stealing food. You get caught and end up in jail. On the bright side you'll have some stories to tell when you get out.",
@@ -668,7 +715,10 @@ scene("moneyLow", () => {
 });
 
 scene("relationshipsLow", () => {
-  endingsScore++;
+  if (!unlockedEndings.relationshipsLow) {
+    endingsScore++;
+    unlockedEndings.relationshipsLow = true;
+  }
   add([
     text(
       "People are afraid to deal with you. You end up alone, writing scripts that nobody will ever read and go crazy talking to your characters. At least they listen to you.",
@@ -687,7 +737,10 @@ scene("relationshipsLow", () => {
 });
 
 scene("universityLow", () => {
-  endingsScore++;
+  if (!unlockedEndings.universityLow) {
+    endingsScore++;
+    unlockedEndings.universityLow = true;
+  }
   add([
     text(
       "You drop out of university and become a bartender. You're now a master of mixing drinks and stories, and the local drunkards can't get enough of both.",
@@ -705,7 +758,10 @@ scene("universityLow", () => {
 });
 
 scene("universityHigh", () => {
-  endingsScore++;
+  if (!unlockedEndings.universityHigh) {
+    endingsScore++;
+    unlockedEndings.universityHigh = true;
+  }
   add([
     text(
       "You pursue an academic career and eventually become a professor. You've written a book about screenwriting but have never made any movie. You feel like a fraud.",
@@ -723,7 +779,10 @@ scene("universityHigh", () => {
 });
 
 scene("win1", () => {
-  endingsScore++;
+  if (!unlockedEndings.win1) {
+    endingsScore++;
+    unlockedEndings.win1 = true;
+  }
   add([
     text(
       "You successfully graduate from university, having written some great shorts and forged valuable connections. But beware, this is only Act One of your life journey.",
@@ -754,7 +813,10 @@ scene("win1", () => {
 });
 
 scene("win2", () => {
-  endingsScore++;
+  if (!unlockedEndings.win2) {
+    endingsScore++;
+    unlockedEndings.win2 = true;
+  }
   add([
     text(
       "Great job! Your scripts are starting to turn heads, and your name is beginning to echo in industry circles. Bigger challenges and grander opportunities are just around the corner, but can you handle them?",
@@ -802,10 +864,42 @@ scene("achievements", () => {
 });
 
 scene("endings", () => {
-  const endingsScoreLabel = add([
-    text(`Endings Unclocked: ${endingsScore}`),
-    pos(24, 50),
+  const endingDisplayText = {
+    universityHigh: "Professor of Screenwriting",
+    universityLow: "Creative bartender",
+    fameHigh: "Red Carpet Regular",
+    fameLow: "Indie Artist",
+    egoHigh: "Crazy Genius",
+    egoLow: "Lost soul",
+    moneyHigh: "Blockbuster Mogul",
+    moneyLow: "Pennyless Poet",
+    relationshipsHigh: "People Pleaser",
+    relationshipsLow: "Lone Wolf",
+    win1: "Cinema School Star",
+    win2: "Young Aspiring Author",
+    failedInterview: false,
+  };
+
+  let yPosition = 50;
+  const heading = add([
+    text("Unlocked Endings"),
+    pos(width() / 2, yPosition),
+    anchor("center"),
+    { size: 30 },
   ]);
+
+  Object.keys(unlockedEndings).forEach((endingKey) => {
+    if (unlockedEndings[endingKey]) {
+      yPosition += 50;
+      const displayText = endingDisplayText[endingKey];
+      add([
+        text(displayText, { size: 24 }),
+        pos(width() / 2, yPosition),
+        anchor("center"),
+      ]);
+    }
+  });
+
   onKeyPress("space", () => go("start"));
   onClick(() => go("start"));
 });
