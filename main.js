@@ -4,6 +4,7 @@ import examQuestions from "/examQuestions.js";
 import mediationQuestions from "/mediationquestions.js";
 
 let isLocked = false;
+
 let unlockedEndings = {
   universityHigh: false,
   universityLow: false,
@@ -21,11 +22,17 @@ let unlockedEndings = {
 };
 let endingsScore = 0;
 
+let riskyChoicesMade = 0;
+console.log(riskyChoicesMade);
 kaboom({
   background: [0, 0, 0],
   width: 1200,
   height: 800,
 });
+
+let unlockedRewards = {
+  riskTaker: false,
+};
 
 scene("start", () => {
   const startButton1 = add([
@@ -84,7 +91,7 @@ scene("level1", () => {
   let egoScore = 40;
   let moneyScore = 40;
   let relationshipsScore = 40;
-
+  let riskyChoicesMade = 0;
   let examFailedScore = 0;
 
   const examLabel = add([text(""), pos(width() / 2, 200), anchor("center")]);
@@ -220,7 +227,29 @@ scene("level1", () => {
     egoScoreLabel.text = `Ego: ${egoScore}`;
     moneyScoreLabel.text = `Money: ${moneyScore}`;
     relationshipsScoreLabel.text = `Relationships: ${relationshipsScore}`;
-    // questionIndexLabel.text = `questionIndex: ${currentQuestionIndex}`;
+
+    //////
+
+    if (
+      Math.abs(university) >= 20 ||
+      Math.abs(ego) >= 20 ||
+      Math.abs(money) >= 20 ||
+      Math.abs(relationships) >= 20
+    ) {
+      riskyChoicesMade++;
+      console.log(riskyChoicesMade);
+      if (riskyChoicesMade >= 3 && !unlockedRewards.riskTaker) {
+        unlockedRewards.riskTaker = true;
+        add([
+          text("Reward unlocked: Risk Taker", {
+            width: width() - 500,
+            size: 30,
+          }),
+          pos(width() / 2, 150),
+          anchor("center"),
+        ]);
+      }
+    }
 
     if (
       shuffledQuestions.length > currentQuestionIndex &&
@@ -534,7 +563,16 @@ scene("failedInterview", () => {
   if (!unlockedEndings.failedInterview) {
     endingsScore++;
     unlockedEndings.failedInterview = true;
+    add([
+      text("New ending unlocked!", {
+        width: width() - 500,
+        size: 30,
+      }),
+      pos(width() / 2, 100),
+      anchor("center"),
+    ]);
   }
+
   add([
     text(
       "You've failed another job interview. It's becoming clear: maybe it's time to hit the books and truly learn about the industry you're diving into?",
@@ -556,6 +594,14 @@ scene("fameHigh", () => {
   if (!unlockedEndings.fameHigh) {
     endingsScore++;
     unlockedEndings.fameHigh = true;
+    add([
+      text("New ending unlocked!", {
+        width: width() - 500,
+        size: 30,
+      }),
+      pos(width() / 2, 100),
+      anchor("center"),
+    ]);
   }
   add([
     text(
@@ -578,6 +624,14 @@ scene("egoHigh", () => {
   if (!unlockedEndings.egoHigh) {
     endingsScore++;
     unlockedEndings.egoHigh = true;
+    add([
+      text("New ending unlocked!", {
+        width: width() - 500,
+        size: 30,
+      }),
+      pos(width() / 2, 100),
+      anchor("center"),
+    ]);
   }
   add([
     text(
@@ -600,6 +654,14 @@ scene("moneyHigh", () => {
   if (!unlockedEndings.moneyHigh) {
     endingsScore++;
     unlockedEndings.moneyHigh = true;
+    add([
+      text("New ending unlocked!", {
+        width: width() - 500,
+        size: 30,
+      }),
+      pos(width() / 2, 100),
+      anchor("center"),
+    ]);
   }
   add([
     text(
@@ -622,6 +684,14 @@ scene("relationshipsHigh", () => {
   if (!unlockedEndings.relationshipsHigh) {
     endingsScore++;
     unlockedEndings.relationshipsHigh = true;
+    add([
+      text("New ending unlocked!", {
+        width: width() - 500,
+        size: 30,
+      }),
+      pos(width() / 2, 100),
+      anchor("center"),
+    ]);
   }
   add([
     text(
@@ -644,6 +714,14 @@ scene("fameLow", () => {
   if (!unlockedEndings.fameLow) {
     endingsScore++;
     unlockedEndings.fameLow = true;
+    add([
+      text("New ending unlocked!", {
+        width: width() - 500,
+        size: 30,
+      }),
+      pos(width() / 2, 100),
+      anchor("center"),
+    ]);
   }
   add([
     text(
@@ -666,6 +744,14 @@ scene("egoLow", () => {
   if (!unlockedEndings.egoLow) {
     endingsScore++;
     unlockedEndings.egoLow = true;
+    add([
+      text("New ending unlocked!", {
+        width: width() - 500,
+        size: 30,
+      }),
+      pos(width() / 2, 100),
+      anchor("center"),
+    ]);
   }
   add([
     text(
@@ -689,11 +775,11 @@ scene("moneyLow", () => {
     endingsScore++;
     unlockedEndings.moneyLow = true;
     add([
-      text("New achievement unlocked!", {
+      text("New ending unlocked!", {
         width: width() - 500,
         size: 30,
       }),
-      pos(width() / 2, 500),
+      pos(width() / 2, 100),
       anchor("center"),
     ]);
   }
@@ -718,6 +804,14 @@ scene("relationshipsLow", () => {
   if (!unlockedEndings.relationshipsLow) {
     endingsScore++;
     unlockedEndings.relationshipsLow = true;
+    add([
+      text("New ending unlocked!", {
+        width: width() - 500,
+        size: 30,
+      }),
+      pos(width() / 2, 100),
+      anchor("center"),
+    ]);
   }
   add([
     text(
@@ -740,6 +834,14 @@ scene("universityLow", () => {
   if (!unlockedEndings.universityLow) {
     endingsScore++;
     unlockedEndings.universityLow = true;
+    add([
+      text("New ending unlocked!", {
+        width: width() - 500,
+        size: 30,
+      }),
+      pos(width() / 2, 100),
+      anchor("center"),
+    ]);
   }
   add([
     text(
@@ -761,6 +863,14 @@ scene("universityHigh", () => {
   if (!unlockedEndings.universityHigh) {
     endingsScore++;
     unlockedEndings.universityHigh = true;
+    add([
+      text("New ending unlocked!", {
+        width: width() - 500,
+        size: 30,
+      }),
+      pos(width() / 2, 100),
+      anchor("center"),
+    ]);
   }
   add([
     text(
@@ -782,6 +892,14 @@ scene("win1", () => {
   if (!unlockedEndings.win1) {
     endingsScore++;
     unlockedEndings.win1 = true;
+    add([
+      text("New ending unlocked!", {
+        width: width() - 500,
+        size: 30,
+      }),
+      pos(width() / 2, 100),
+      anchor("center"),
+    ]);
   }
   add([
     text(
@@ -816,6 +934,14 @@ scene("win2", () => {
   if (!unlockedEndings.win2) {
     endingsScore++;
     unlockedEndings.win2 = true;
+    add([
+      text("New ending unlocked!", {
+        width: width() - 500,
+        size: 30,
+      }),
+      pos(width() / 2, 100),
+      anchor("center"),
+    ]);
   }
   add([
     text(
@@ -858,8 +984,23 @@ scene("achievements", () => {
 
   endingsButton.add([text("Endings"), anchor("center"), color(0, 0, 0)]);
 
+  const rewardsButton = add([
+    rect(240, 80, { radius: 8 }),
+    pos(width() / 2, 250),
+    area(),
+    scale(1),
+    anchor("center"),
+    outline(4),
+  ]);
+
+  rewardsButton.add([text("Rewards"), anchor("center"), color(0, 0, 0)]);
+
   endingsButton.onClick(() => {
     go("endings");
+  });
+
+  rewardsButton.onClick(() => {
+    go("rewards");
   });
 });
 
@@ -877,12 +1018,12 @@ scene("endings", () => {
     relationshipsLow: "Lone Wolf",
     win1: "Cinema School Star",
     win2: "Young Aspiring Author",
-    failedInterview: false,
+    failedInterview: "Failed Interview",
   };
 
   let yPosition = 50;
   const heading = add([
-    text("Unlocked Endings"),
+    text(`Unlocked Endings: ${endingsScore}/13`),
     pos(width() / 2, yPosition),
     anchor("center"),
     { size: 30 },
@@ -892,6 +1033,35 @@ scene("endings", () => {
     if (unlockedEndings[endingKey]) {
       yPosition += 50;
       const displayText = endingDisplayText[endingKey];
+      add([
+        text(displayText, { size: 24 }),
+        pos(width() / 2, yPosition),
+        anchor("center"),
+      ]);
+    }
+  });
+
+  onKeyPress("space", () => go("start"));
+  onClick(() => go("start"));
+});
+
+scene("rewards", () => {
+  const rewardDisplayText = {
+    riskTaker: "Risk Taker",
+  };
+
+  let yPosition = 50;
+  const heading = add([
+    text(`Unlocked Rewards: `),
+    pos(width() / 2, yPosition),
+    anchor("center"),
+    { size: 30 },
+  ]);
+
+  Object.keys(unlockedRewards).forEach((rewardKey) => {
+    if (unlockedRewards[rewardKey]) {
+      yPosition += 50;
+      const displayText = rewardDisplayText[rewardKey];
       add([
         text(displayText, { size: 24 }),
         pos(width() / 2, yPosition),

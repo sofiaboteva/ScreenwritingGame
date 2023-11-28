@@ -33,7 +33,7 @@ const questions = [
       {
         text: "Your rules are too tight for my Ego",
         university: -10,
-        ego: 10,
+        ego: 20,
         money: 0,
         relationships: -10,
       },
@@ -52,7 +52,7 @@ const questions = [
       {
         text: "Stick to your vision",
         university: -10,
-        ego: 10,
+        ego: 20,
         money: 0,
         relationships: 0,
       },
@@ -151,7 +151,7 @@ const questions = [
       {
         text: "A daring one",
         university: -10,
-        ego: 10,
+        ego: 20,
         money: 0,
         relationships: 10,
       },
@@ -186,7 +186,7 @@ const questions = [
         university: 0,
         ego: -10,
         money: 0,
-        relationships: 20,
+        relationships: 10,
       },
       {
         text: "I've got better things to do",
@@ -243,14 +243,14 @@ const questions = [
       {
         text: "Never mind' it's not so good",
         university: 0,
-        ego: -20,
+        ego: -10,
         money: 0,
         relationships: 0,
       },
       {
         text: "I'll sue him!",
         university: 0,
-        ego: 20,
+        ego: 10,
         money: 0,
         relationships: 0,
       },
@@ -290,7 +290,7 @@ const questions = [
       {
         text: "Stick to the bar job",
         university: 0,
-        ego: -20,
+        ego: -10,
         money: 10,
         relationships: 0,
       },
