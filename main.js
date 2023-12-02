@@ -30,6 +30,8 @@ kaboom({
   height: 800,
 });
 
+let rewardText = null;
+
 let unlockedRewards = {
   riskTaker: false,
 };
@@ -128,6 +130,18 @@ scene("level1", () => {
   setNextQuestion();
 
   function setNextQuestion() {
+    if (rewardText) {
+      wait(2, () => {
+        destroy(rewardText);
+        rewardText = null;
+        loadNextQuestion();
+      });
+    } else {
+      loadNextQuestion();
+    }
+  }
+
+  function loadNextQuestion() {
     resetState();
 
     if (currentQuestionIndex % 5 === 0 && examcounter <= 5) {
@@ -205,9 +219,8 @@ scene("level1", () => {
       button.value = answer.value;
 
       button.onClick(() => {
-        if (isLocked) return; // If locked, do not process the click
-
-        isLocked = true; // Lock input processing once the button is clicked
+        if (isLocked) return;
+        isLocked = true;
         selectExamAnswer(answer.value);
       });
 
@@ -228,8 +241,6 @@ scene("level1", () => {
     moneyScoreLabel.text = `Money: ${moneyScore}`;
     relationshipsScoreLabel.text = `Relationships: ${relationshipsScore}`;
 
-    //////
-
     if (
       Math.abs(university) >= 20 ||
       Math.abs(ego) >= 20 ||
@@ -238,9 +249,10 @@ scene("level1", () => {
     ) {
       riskyChoicesMade++;
       console.log(riskyChoicesMade);
+
       if (riskyChoicesMade >= 3 && !unlockedRewards.riskTaker) {
         unlockedRewards.riskTaker = true;
-        add([
+        rewardText = add([
           text("Reward unlocked: Risk Taker", {
             width: width() - 500,
             size: 30,
@@ -267,7 +279,7 @@ scene("level1", () => {
       shuffledQuestions.length > currentQuestionIndex &&
       universityScore >= 90
     ) {
-      go("universityHigh");
+      transitionToScene("universityHigh");
     } else if (
       shuffledQuestions.length > currentQuestionIndex &&
       universityScore <= 0
@@ -277,34 +289,34 @@ scene("level1", () => {
       shuffledQuestions.length > currentQuestionIndex &&
       egoScore >= 90
     ) {
-      go("egoHigh");
+      transitionToScene("egoHigh");
     } else if (
       shuffledQuestions.length > currentQuestionIndex &&
       egoScore <= 0
     ) {
-      go("egoLow");
+      transitionToScene("egoLow");
     } else if (
       shuffledQuestions.length > currentQuestionIndex &&
       moneyScore >= 90
     ) {
-      go("moneyHigh");
+      transitionToScene("moneyHigh");
     } else if (
       shuffledQuestions.length > currentQuestionIndex &&
       moneyScore <= 0
     ) {
-      go("moneyLow");
+      transitionToScene("moneyLow");
     } else if (
       shuffledQuestions.length > currentQuestionIndex &&
       relationshipsScore >= 90
     ) {
-      go("relationshipsHigh");
+      transitionToScene("relationshipsHigh");
     } else if (
       shuffledQuestions.length > currentQuestionIndex &&
       relationshipsScore <= 0
     ) {
-      go("relationshipsLow");
+      transitionToScene("relationshipsLow");
     } else {
-      go("win1");
+      transitionToScene("win1");
     }
   }
 
@@ -312,22 +324,28 @@ scene("level1", () => {
     examQuestionIndex++;
     examcounter++;
     examFailedScore += value;
-    //examFailedLabel.text = `Questions failed: ${examFailedScore}`;
     examLabel.text = `Exam time! Questions failed: ${examFailedScore}`;
-
-    // examQuestionIndexLabel.text = `examquestionIndex: ${examQuestionIndex}`;
-    // examcounterLabel.text = `examcounter: ${examcounter}`;
 
     if (shuffledQuestions.length > examQuestionIndex && examFailedScore < 3) {
       wait(0.05, setNextQuestion);
     } else {
-      go("universityLow");
+      transitionToScene("universityLow");
     }
   }
 
   function resetState() {
     answerButtons.forEach((button) => destroy(button));
     answerButtons = [];
+  }
+
+  function transitionToScene(targetScene) {
+    if (rewardText) {
+      wait(2, () => {
+        go(targetScene);
+      });
+    } else {
+      go(targetScene);
+    }
   }
 });
 
@@ -337,6 +355,7 @@ scene("level2", () => {
   let egoScore = 40;
   let moneyScore = 40;
   let relationshipsScore = 40;
+  let riskyChoicesMade = 0;
 
   let mediationFailedScore = 0;
 
@@ -377,6 +396,46 @@ scene("level2", () => {
   setNextQuestion();
 
   function setNextQuestion() {
+    if (rewardText) {
+      wait(2, () => {
+        destroy(rewardText);
+        rewardText = null;
+        loadNextQuestion();
+      });
+    } else {
+      loadNextQuestion();
+    }
+  }
+
+  function loadNextQuestion() {
+    resetState();
+
+    if (currentQuestionIndex % 5 === 0 && examcounter <= 5) {
+      // Show a special question here
+      showExamQuestion(shuffledExamQuestions[examQuestionIndex]);
+    } else {
+      // Show a regular question
+      examcounter = 1;
+
+      showQuestion(shuffledQuestions[currentQuestionIndex]);
+    }
+
+    isLocked = false;
+  }
+
+  function setNextQuestion() {
+    if (rewardText) {
+      wait(2, () => {
+        destroy(rewardText);
+        rewardText = null;
+        loadNextQuestion();
+      });
+    } else {
+      loadNextQuestion();
+    }
+  }
+
+  function loadNextQuestion() {
     resetState();
 
     if (currentQuestionIndex % 5 === 0 && mediationcounter <= 5) {
@@ -385,7 +444,6 @@ scene("level2", () => {
     } else {
       // Show a regular question
       mediationcounter = 1;
-      // examcounterLabel.text = `examcounter: ${examcounter}`;
 
       showQuestion(shuffledQuestions[currentQuestionIndex]);
     }
@@ -478,7 +536,27 @@ scene("level2", () => {
     egoScoreLabel.text = `Ego: ${egoScore}`;
     moneyScoreLabel.text = `Money: ${moneyScore}`;
     relationshipsScoreLabel.text = `Relationships: ${relationshipsScore}`;
-    // questionIndexLabel.text = `questionIndex: ${currentQuestionIndex}`;
+
+    if (
+      Math.abs(fame) >= 20 ||
+      Math.abs(ego) >= 20 ||
+      Math.abs(money) >= 20 ||
+      Math.abs(relationships) >= 20
+    ) {
+      riskyChoicesMade++;
+      console.log(riskyChoicesMade);
+      if (riskyChoicesMade >= 3 && !unlockedRewards.riskTaker) {
+        unlockedRewards.riskTaker = true;
+        rewardText = add([
+          text("Reward unlocked: Risk Taker", {
+            width: width() - 500,
+            size: 30,
+          }),
+          pos(width() / 2, 150),
+          anchor("center"),
+        ]);
+      }
+    }
 
     if (
       shuffledQuestions.length > currentQuestionIndex &&
@@ -496,44 +574,44 @@ scene("level2", () => {
       shuffledQuestions.length > currentQuestionIndex &&
       fameScore >= 90
     ) {
-      go("fameHigh");
+      transitionToScene("fameHigh");
     } else if (
       shuffledQuestions.length > currentQuestionIndex &&
       fameScore <= 0
     ) {
-      go("fameLow");
+      transitionToScene("fameLow");
     } else if (
       shuffledQuestions.length > currentQuestionIndex &&
       egoScore >= 90
     ) {
-      go("egoHigh");
+      transitionToScene("egoHigh");
     } else if (
       shuffledQuestions.length > currentQuestionIndex &&
       egoScore <= 0
     ) {
-      go("egoLow");
+      transitionToScene("egoLow");
     } else if (
       shuffledQuestions.length > currentQuestionIndex &&
       moneyScore >= 90
     ) {
-      go("moneyHigh");
+      transitionToScene("moneyHigh");
     } else if (
       shuffledQuestions.length > currentQuestionIndex &&
       moneyScore <= 0
     ) {
-      go("moneyLow");
+      transitionToScene("moneyLow");
     } else if (
       shuffledQuestions.length > currentQuestionIndex &&
       relationshipsScore >= 90
     ) {
-      go("relationshipsHigh");
+      transitionToScene("relationshipsHigh");
     } else if (
       shuffledQuestions.length > currentQuestionIndex &&
       relationshipsScore <= 0
     ) {
-      go("relationshipsLow");
+      transitionToScene("relationshipsLow");
     } else {
-      go("win2");
+      transitionToScene("win2");
     }
   }
 
@@ -556,6 +634,16 @@ scene("level2", () => {
   function resetState() {
     answerButtons.forEach((button) => destroy(button));
     answerButtons = [];
+  }
+
+  function transitionToScene(targetScene) {
+    if (rewardText) {
+      wait(2, () => {
+        go(targetScene);
+      });
+    } else {
+      go(targetScene);
+    }
   }
 });
 
