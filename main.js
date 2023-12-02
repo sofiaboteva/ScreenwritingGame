@@ -34,6 +34,7 @@ let rewardText = null;
 
 let unlockedRewards = {
   riskTaker: false,
+  bigHead: false,
 };
 
 scene("start", () => {
@@ -325,7 +326,23 @@ scene("level1", () => {
     examcounter++;
     examFailedScore += value;
     examLabel.text = `Exam time! Questions failed: ${examFailedScore}`;
+    console.log(examQuestionIndex);
 
+    if (
+      examQuestionIndex >= 15 &&
+      examFailedScore == 0 &&
+      !unlockedRewards.bigHead
+    ) {
+      unlockedRewards.bigHead = true;
+      rewardText = add([
+        text("Reward unlocked: Big Head", {
+          width: width() - 500,
+          size: 30,
+        }),
+        pos(width() / 2, 150),
+        anchor("center"),
+      ]);
+    }
     if (shuffledQuestions.length > examQuestionIndex && examFailedScore < 3) {
       wait(0.05, setNextQuestion);
     } else {
@@ -1136,6 +1153,7 @@ scene("endings", () => {
 scene("rewards", () => {
   const rewardDisplayText = {
     riskTaker: "Risk Taker",
+    bigHead: "Big Head",
   };
 
   let yPosition = 50;
