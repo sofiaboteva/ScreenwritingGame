@@ -23,7 +23,6 @@ let unlockedEndings = {
 let endingsScore = 0;
 
 let riskyChoicesMade = 0;
-console.log(riskyChoicesMade);
 kaboom({
   background: [0, 0, 0],
   width: 1200,
@@ -637,7 +636,23 @@ scene("level2", () => {
     mediationcounter++;
     mediationFailedScore += value;
     mediationLabel.text = `Job interview! Questions failed: ${mediationFailedScore}`;
+    console.log(mediationQuestionIndex);
 
+    if (
+      mediationQuestionIndex >= 15 &&
+      mediationFailedScore == 0 &&
+      !unlockedRewards.bigHead
+    ) {
+      unlockedRewards.bigHead = true;
+      rewardText = add([
+        text("Reward unlocked: Big Head", {
+          width: width() - 500,
+          size: 30,
+        }),
+        pos(width() / 2, 150),
+        anchor("center"),
+      ]);
+    }
     if (
       shuffledQuestions.length > mediationQuestionIndex &&
       mediationFailedScore < 3
