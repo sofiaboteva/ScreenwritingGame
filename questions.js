@@ -384,3 +384,136 @@ const questions = [
   },
 ];
 export default questions;
+
+// const questions = [
+//   {
+//     question:
+//       "Professor: Your student script should be very simple, following basic screenwriting rules",
+//     answers: [
+//       {
+//         text: "Sure, I am a reasonable student",
+//         university: 10,
+//         ego: -10,
+//         money: 0,
+//         relationships: 0,
+//       },
+//       {
+//         text: "Your rules are too tight for my Ego",
+//         university: -10,
+//         ego: 20,
+//         money: 0,
+//         relationships: -10,
+//         artisticIntegrity: true,
+//       },
+//     ],
+//   },
+//   {
+//     question: "Professor: The short script you brought is crap.",
+//     answers: [
+//       {
+//         text: "Rewrite the script",
+//         university: 10,
+//         ego: -10,
+//         money: 0,
+//         relationships: 0,
+//       },
+//       {
+//         text: "Stick to your vision",
+//         university: -10,
+//         ego: 20,
+//         money: 0,
+//         relationships: 0,
+//         artisticIntegrity: true,
+//       },
+//     ],
+//   },
+
+//   {
+//     question:
+//       "Famous Screenwriter: Today we are visited by a notorious screenwriter, you have a chance to pitch one of your ideas. What idea will you pitch?",
+//     answers: [
+//       {
+//         text: "A safe One",
+//         university: 10,
+//         ego: -10,
+//         money: 0,
+//         relationships: 0,
+//       },
+//       {
+//         text: "A daring one",
+//         university: -10,
+//         ego: 20,
+//         money: 0,
+//         relationships: 10,
+//         artisticIntegrity: true,
+//       },
+//     ],
+//   },
+
+//   {
+//     question:
+//       "Student Director: The school won't be able to finance our student film, based on your screenplay. Spaceship scenes are too expensive.",
+//     answers: [
+//       {
+//         text: "I'll invest my own money, let's still shoot it",
+//         university: 10,
+//         ego: 10,
+//         money: -20,
+//         relationships: 0,
+//         artisticIntegrity: true,
+//       },
+//       {
+//         text: "Okay, I'll turn it to a one-room Covid drama",
+//         university: 0,
+//         ego: -10,
+//         money: 0,
+//         relationships: 0,
+//       },
+//     ],
+//   },
+
+//   {
+//     question:
+//       "Classmate: You aren't on the credits list of your friend's movie that you helped him with",
+//     answers: [
+//       {
+//         text: "Never mind' it's not so good",
+//         university: 0,
+//         ego: -10,
+//         money: 0,
+//         relationships: 0,
+//       },
+//       {
+//         text: "I'll sue him!",
+//         university: 0,
+//         ego: 10,
+//         money: 0,
+//         relationships: 0,
+//         artisticIntegrity: true,
+//       },
+//     ],
+//   },
+
+//   // {
+//   //   question:
+//   //     "You're so talented! We want you to write some episodes for a TV soap opera. It's awful but the money are good. But you'll have to give up your studies for some time",
+//   //   answers: [
+//   //     {
+//   //       text: " I'll do it",
+//   //       university: -20,
+//   //       ego: 0,
+//   //       money: 20,
+//   //       relationships: 0,
+//   //     },
+//   //     {
+//   //       text: "I won't sell my talent",
+//   //       university: 0,
+//   //       ego: 10,
+//   //       money: -10,
+//   //       relationships: 0,
+//   //       artisticIntegrity: true,
+//   //     },
+//   //   ],
+//   // },
+// ];
+// export default questions;

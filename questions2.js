@@ -15,6 +15,7 @@ const questions2 = [
         ego: 10,
         money: 0,
         relationships: 0,
+        artisticIntegrity: true,
       },
     ],
   },

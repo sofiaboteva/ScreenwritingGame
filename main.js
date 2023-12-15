@@ -22,7 +22,15 @@ let unlockedEndings = {
 };
 let endingsScore = 0;
 
+let unlockedRewards = {
+  riskTaker: false,
+  bigHead: false,
+  artisticIntegrity: false,
+};
+
 let riskyChoicesMade = 0;
+let artisticIntegrityScore = 0;
+
 kaboom({
   background: [0, 0, 0],
   width: 1200,
@@ -30,11 +38,6 @@ kaboom({
 });
 
 let rewardText = null;
-
-let unlockedRewards = {
-  riskTaker: false,
-  bigHead: false,
-};
 
 scene("start", () => {
   const startButton1 = add([
@@ -94,6 +97,7 @@ scene("level1", () => {
   let moneyScore = 40;
   let relationshipsScore = 40;
   riskyChoicesMade = 0;
+  artisticIntegrityScore = 0;
   let examFailedScore = 0;
 
   const examLabel = add([text(""), pos(width() / 2, 200), anchor("center")]);
@@ -133,7 +137,7 @@ scene("level1", () => {
     if (rewardText) {
       wait(2, () => {
         destroy(rewardText);
-        rewardText = null;
+        //rewardText = null;
         loadNextQuestion();
       });
     } else {
@@ -189,7 +193,8 @@ scene("level1", () => {
           answer.university,
           answer.ego,
           answer.money,
-          answer.relationships
+          answer.relationships,
+          answer.artisticIntegrity
         );
       });
 
@@ -228,13 +233,20 @@ scene("level1", () => {
     });
   }
 
-  function selectAnswer(university, ego, money, relationships) {
+  function selectAnswer(
+    university,
+    ego,
+    money,
+    relationships,
+    artisticIntegrity
+  ) {
     universityScore += university;
     egoScore += ego;
     moneyScore += money;
     relationshipsScore += relationships;
 
     currentQuestionIndex++;
+    //console.log(artisticIntegrityScore);
 
     universityScoreLabel.text = `University: ${universityScore}`;
     egoScoreLabel.text = `Ego: ${egoScore}`;
@@ -248,7 +260,7 @@ scene("level1", () => {
       Math.abs(relationships) >= 20
     ) {
       riskyChoicesMade++;
-      console.log(riskyChoicesMade);
+      //console.log(riskyChoicesMade);
 
       if (riskyChoicesMade >= 4 && !unlockedRewards.riskTaker) {
         unlockedRewards.riskTaker = true;
@@ -261,6 +273,23 @@ scene("level1", () => {
           anchor("center"),
         ]);
       }
+    }
+
+    if (artisticIntegrity) {
+      artisticIntegrityScore++;
+      console.log(artisticIntegrityScore);
+    }
+
+    if (artisticIntegrityScore >= 4 && !unlockedRewards.artisticIntegrity) {
+      unlockedRewards.artisticIntegrity = true;
+      rewardText = add([
+        text("Reward unlocked: Artistic Integrity", {
+          width: width() - 500,
+          size: 30,
+        }),
+        pos(width() / 2, 150),
+        anchor("center"),
+      ]);
     }
 
     if (
@@ -500,7 +529,8 @@ scene("level2", () => {
           answer.fame,
           answer.ego,
           answer.money,
-          answer.relationships
+          answer.relationships,
+          answer.artisticIntegrity
         );
       });
 
@@ -540,7 +570,7 @@ scene("level2", () => {
     });
   }
 
-  function selectAnswer(fame, ego, money, relationships) {
+  function selectAnswer(fame, ego, money, relationships, artisticIntegrity) {
     fameScore += fame;
     egoScore += ego;
     moneyScore += money;
@@ -560,7 +590,7 @@ scene("level2", () => {
       Math.abs(relationships) >= 20
     ) {
       riskyChoicesMade++;
-      console.log(riskyChoicesMade);
+      //console.log(riskyChoicesMade);
       if (riskyChoicesMade >= 4 && !unlockedRewards.riskTaker) {
         unlockedRewards.riskTaker = true;
         rewardText = add([
@@ -572,6 +602,23 @@ scene("level2", () => {
           anchor("center"),
         ]);
       }
+    }
+
+    if (artisticIntegrity) {
+      artisticIntegrityScore++;
+      console.log(artisticIntegrityScore);
+    }
+
+    if (artisticIntegrityScore >= 4 && !unlockedRewards.artisticIntegrity) {
+      unlockedRewards.artisticIntegrity = true;
+      rewardText = add([
+        text("Reward unlocked: Artistic Integrity", {
+          width: width() - 500,
+          size: 30,
+        }),
+        pos(width() / 2, 150),
+        anchor("center"),
+      ]);
     }
 
     if (
@@ -1169,6 +1216,7 @@ scene("rewards", () => {
   const rewardDisplayText = {
     riskTaker: "Risk Taker",
     bigHead: "Big Head",
+    artisticIntegrity: "Artistic Integrity",
   };
 
   let yPosition = 50;
