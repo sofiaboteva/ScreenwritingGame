@@ -93,7 +93,7 @@ scene("level1", () => {
   let egoScore = 40;
   let moneyScore = 40;
   let relationshipsScore = 40;
-  let riskyChoicesMade = 0;
+  riskyChoicesMade = 0;
   let examFailedScore = 0;
 
   const examLabel = add([text(""), pos(width() / 2, 200), anchor("center")]);
@@ -250,7 +250,7 @@ scene("level1", () => {
       riskyChoicesMade++;
       console.log(riskyChoicesMade);
 
-      if (riskyChoicesMade >= 3 && !unlockedRewards.riskTaker) {
+      if (riskyChoicesMade >= 4 && !unlockedRewards.riskTaker) {
         unlockedRewards.riskTaker = true;
         rewardText = add([
           text("Reward unlocked: Risk Taker", {
@@ -325,7 +325,7 @@ scene("level1", () => {
     examcounter++;
     examFailedScore += value;
     examLabel.text = `Exam time! Questions failed: ${examFailedScore}`;
-    console.log(examQuestionIndex);
+    //console.log(examQuestionIndex);
 
     if (
       examQuestionIndex >= 15 &&
@@ -371,7 +371,7 @@ scene("level2", () => {
   let egoScore = 40;
   let moneyScore = 40;
   let relationshipsScore = 40;
-  let riskyChoicesMade = 0;
+  //console.log(riskyChoicesMade);
 
   let mediationFailedScore = 0;
 
@@ -561,7 +561,7 @@ scene("level2", () => {
     ) {
       riskyChoicesMade++;
       console.log(riskyChoicesMade);
-      if (riskyChoicesMade >= 3 && !unlockedRewards.riskTaker) {
+      if (riskyChoicesMade >= 4 && !unlockedRewards.riskTaker) {
         unlockedRewards.riskTaker = true;
         rewardText = add([
           text("Reward unlocked: Risk Taker", {
@@ -636,7 +636,7 @@ scene("level2", () => {
     mediationcounter++;
     mediationFailedScore += value;
     mediationLabel.text = `Job interview! Questions failed: ${mediationFailedScore}`;
-    console.log(mediationQuestionIndex);
+    //console.log(mediationQuestionIndex);
 
     if (
       mediationQuestionIndex >= 15 &&
