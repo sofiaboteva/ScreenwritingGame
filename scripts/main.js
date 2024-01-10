@@ -1,7 +1,7 @@
-import questions from "/questions.js";
-import questions2 from "/questions2.js";
-import examQuestions from "/examQuestions.js";
-import mediationQuestions from "/mediationquestions.js";
+import questions from "/scripts/questions.js";
+import questions2 from "/scripts/questions2.js";
+import examQuestions from "/scripts/examQuestions.js";
+import mediationQuestions from "/scripts/mediationquestions.js";
 
 let isLocked = false;
 
