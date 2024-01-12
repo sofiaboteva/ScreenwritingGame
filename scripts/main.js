@@ -2,8 +2,10 @@ import questions from "/scripts/questions.js";
 import questions2 from "/scripts/questions2.js";
 import examQuestions from "/scripts/examQuestions.js";
 import mediationQuestions from "/scripts/mediationquestions.js";
+import tutorialQuestions from "/scripts/tutorialQuestions.js";
 
 let isLocked = false;
+let tutorialCompleted = false;
 
 let unlockedEndings = {
   universityHigh: false,
@@ -79,7 +81,8 @@ scene("start", () => {
   ]);
 
   startButton1.onClick(() => {
-    go("level1");
+    //go("level1");
+    go("tutorial")
   });
 
   startButton2.onClick(() => {
@@ -92,6 +95,152 @@ scene("start", () => {
 });
 
 go("start");
+
+scene("tutorial", () => {
+  let answerButtons = [];
+  let universityScore = 40;
+  let egoScore = 40;
+  let moneyScore = 40;
+  let relationshipsScore = 40;
+ 
+  const universityScoreLabel = add([
+    text(`University: ${universityScore}`),
+    pos(24, 20),
+    color(rgb(26, 28, 26)),
+  ]);
+
+  const egoScoreLabel = add([
+    text(`Ego: ${egoScore}`),
+    pos(24, 50),
+    color(rgb(26, 28, 26)),
+  ]);
+
+  const moneyScoreLabel = add([
+    text(`Money: ${moneyScore}`),
+    pos(24, 80),
+    color(rgb(26, 28, 26)),
+  ]);
+  const relationshipsScoreLabel = add([
+    text(`Relationships: ${relationshipsScore}`),
+    pos(24, 110),
+    color(rgb(26, 28, 26)),
+  ]);
+
+  const questionElement = add([
+    text("Question", {
+      width: width() - 500,
+      wrap: true,
+      size: 30,
+    }),
+    pos(width() / 2, 300),
+    anchor("center"),
+    color(rgb(26, 28, 26)),
+  ]);
+
+
+  
+  let currentTutorialQuestionIndex = 0
+  setNextTutorialQuestion();
+ 
+
+  
+
+  function setNextTutorialQuestion() {
+      loadNextQuestion();
+  }
+
+  function loadNextQuestion() {
+    resetState();
+
+    if (currentTutorialQuestionIndex < tutorialQuestions.length) {
+      showQuestion(tutorialQuestions[currentTutorialQuestionIndex]);
+    } else {
+      // Tutorial completed, transition to main game
+      tutorialCompleted = true;
+      go("level1");
+    }
+
+    isLocked = false;
+  }
+
+  function showQuestion(question) {
+    questionElement.text = question.question;
+    question.answers.forEach((answer, index) => {
+      let button = add([
+        rect(900, 100, { radius: 8 }),
+        pos(width() / 2, 450 + index * 100),
+        area(),
+        scale(1),
+        anchor("center"),
+        outline(4),
+      ]);
+
+      button.add([
+        text(answer.text, { size: 25 }),
+        anchor("center"),
+        color(0, 0, 0),
+      ]);
+
+      button.value1 = answer.university;
+      button.value2 = answer.ego;
+      button.value3 = answer.money;
+      button.value4 = answer.relationships;
+
+      button.onClick(() => {
+        if (isLocked) return; // If locked, do not process the click
+
+        isLocked = true; // Lock input processing once the button is clicked
+        selectAnswer(
+          answer.university,
+          answer.ego,
+          answer.money,
+          answer.relationships,
+          answer.artisticIntegrity
+        );
+      });
+
+      answerButtons.push(button);
+    });
+  }
+
+
+  function selectAnswer(
+    university,
+    ego,
+    money,
+    relationships,
+  ) {
+    universityScore += university;
+    egoScore += ego;
+    moneyScore += money;
+    relationshipsScore += relationships;
+
+    currentTutorialQuestionIndex++;
+  
+
+    universityScoreLabel.text = `University: ${universityScore}`;
+    egoScoreLabel.text = `Ego: ${egoScore}`;
+    moneyScoreLabel.text = `Money: ${moneyScore}`;
+    relationshipsScoreLabel.text = `Relationships: ${relationshipsScore}`;
+
+    if (currentTutorialQuestionIndex < tutorialQuestions.length) {
+      wait(0.05, setNextTutorialQuestion);
+    } else {
+      // Tutorial completed, transition to main game
+      tutorialCompleted = true;
+      go("level1");
+    }
+
+
+    
+  }
+
+  function resetState() {
+    answerButtons.forEach((button) => destroy(button));
+    answerButtons = [];
+  }
+
+});
 
 scene("level1", () => {
   let answerButtons = [];
@@ -158,7 +307,10 @@ scene("level1", () => {
 
   let shuffledExamQuestions = examQuestions.sort(() => Math.random() - 0.5);
 
+
+  
   setNextQuestion();
+
 
   function setNextQuestion() {
     if (rewardText) {
