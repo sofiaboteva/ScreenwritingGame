@@ -160,7 +160,7 @@ const tutorialQuestions = [
       },
 
       {
-        question:"Be careful, you only have right to 2 mistakes.",
+        question:"Be careful, you only have right for 2 mistakes.",
         answers: [
           {
             text: "I'll be fine",
