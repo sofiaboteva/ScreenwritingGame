@@ -32,10 +32,13 @@ let riskyChoicesMade = 0;
 let artisticIntegrityScore = 0;
 
 kaboom({
-  background: [0, 0, 0],
+  background: [243, 223, 193],
   width: 1200,
   height: 800,
 });
+
+// loadSprite("test", "/sprites/capfin.png");
+// loadSprite("dollar", "/sprites/dollar.png");
 
 let rewardText = null;
 
@@ -106,15 +109,38 @@ scene("level1", () => {
   let examQuestionIndex = 1;
   let examcounter = 1;
 
+  // const UniversityScorePicture = add([
+  //   sprite("test"),
+  //   pos(50, 50),
+  //   scale(0.1),
+  //   anchor("center"),
+  // ]);
   const universityScoreLabel = add([
     text(`University: ${universityScore}`),
     pos(24, 20),
+    color(rgb(26, 28, 26)),
   ]);
-  const egoScoreLabel = add([text(`Ego: ${egoScore}`), pos(24, 50)]);
-  const moneyScoreLabel = add([text(`Money: ${moneyScore}`), pos(24, 80)]);
+
+  const egoScoreLabel = add([
+    text(`Ego: ${egoScore}`),
+    pos(24, 50),
+    color(rgb(26, 28, 26)),
+  ]);
+  // const MoneyScorePicture = add([
+  //   sprite("dollar"),
+  //   pos(350, 50),
+  //   scale(0.1),
+  //   anchor("center"),
+  // ]);
+  const moneyScoreLabel = add([
+    text(`Money: ${moneyScore}`),
+    pos(24, 80),
+    color(rgb(26, 28, 26)),
+  ]);
   const relationshipsScoreLabel = add([
     text(`Relationships: ${relationshipsScore}`),
     pos(24, 110),
+    color(rgb(26, 28, 26)),
   ]);
 
   const questionElement = add([
@@ -125,6 +151,7 @@ scene("level1", () => {
     }),
     pos(width() / 2, 300),
     anchor("center"),
+    color(rgb(26, 28, 26)),
   ]);
 
   let shuffledQuestions = questions.sort(() => Math.random() - 0.5);
@@ -414,12 +441,25 @@ scene("level2", () => {
   let mediationQuestionIndex = 1;
   let mediationcounter = 1;
 
-  const fameScoreLabel = add([text(`Fame: ${fameScore}`), pos(24, 20)]);
-  const egoScoreLabel = add([text(`Ego: ${egoScore}`), pos(24, 50)]);
-  const moneyScoreLabel = add([text(`Money: ${moneyScore}`), pos(24, 80)]);
+  const fameScoreLabel = add([
+    text(`Fame: ${fameScore}`),
+    pos(24, 20),
+    color(rgb(26, 28, 26)),
+  ]);
+  const egoScoreLabel = add([
+    text(`Ego: ${egoScore}`),
+    pos(24, 50),
+    color(rgb(26, 28, 26)),
+  ]);
+  const moneyScoreLabel = add([
+    text(`Money: ${moneyScore}`),
+    pos(24, 80),
+    color(rgb(26, 28, 26)),
+  ]);
   const relationshipsScoreLabel = add([
     text(`Relationships: ${relationshipsScore}`),
     pos(24, 110),
+    color(rgb(26, 28, 26)),
   ]);
 
   const questionElement = add([
@@ -430,6 +470,7 @@ scene("level2", () => {
     }),
     pos(width() / 2, 300),
     anchor("center"),
+    color(rgb(26, 28, 26)),
   ]);
 
   let shuffledQuestions = questions2.sort(() => Math.random() - 0.5);
