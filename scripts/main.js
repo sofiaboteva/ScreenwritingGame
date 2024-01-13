@@ -39,8 +39,7 @@ kaboom({
   height: 800,
 });
 
-// loadSprite("test", "/sprites/capfin.png");
-// loadSprite("dollar", "/sprites/dollar.png");
+loadSprite("arrow", "/sprites/arrow.png");
 
 let rewardText = null;
 
@@ -81,9 +80,11 @@ scene("start", () => {
   ]);
 
   startButton1.onClick(() => {
-    //go("level1");
+    if (tutorialCompleted) {
+      go("level1");
+    } else {  
     go("tutorial")
-  });
+  }});
 
   startButton2.onClick(() => {
     go("level2");
@@ -102,7 +103,23 @@ scene("tutorial", () => {
   let egoScore = 40;
   let moneyScore = 40;
   let relationshipsScore = 40;
- 
+  let arrow = add([
+    sprite("arrow"),
+    pos(400, 70),
+    scale(0.1),
+    anchor("center"),
+    rotate(180),
+    opacity(0), // Initially hidden
+  ]);
+
+  let universityFrame = add([
+    rect(350, 130, { radius: 8 }),
+    pos(10, 15),
+    color(255, 255, 255),
+    opacity(0), // Initially hidden
+  ]);
+
+
   const universityScoreLabel = add([
     text(`University: ${universityScore}`),
     pos(24, 20),
@@ -137,8 +154,6 @@ scene("tutorial", () => {
     color(rgb(26, 28, 26)),
   ]);
 
-
-  
   let currentTutorialQuestionIndex = 0
   setNextTutorialQuestion();
  
@@ -163,9 +178,21 @@ scene("tutorial", () => {
     isLocked = false;
   }
 
+
   function showQuestion(question) {
     questionElement.text = question.question;
+    if (question.highlightscores) {
+      arrow.opacity = 1; // Show the arrow
+      universityFrame.opacity = 1;
+    } else {
+      arrow.opacity = 0; // Hide the arrow
+      universityFrame.opacity = 0;
+    }
+
+         
+      
     question.answers.forEach((answer, index) => {
+
       let button = add([
         rect(900, 100, { radius: 8 }),
         pos(width() / 2, 450 + index * 100),
@@ -195,7 +222,6 @@ scene("tutorial", () => {
           answer.ego,
           answer.money,
           answer.relationships,
-          answer.artisticIntegrity
         );
       });
 
@@ -238,6 +264,8 @@ scene("tutorial", () => {
   function resetState() {
     answerButtons.forEach((button) => destroy(button));
     answerButtons = [];
+    arrow.opacity = 0
+    universityFrame.opacity = 0
   }
 
 });
@@ -470,6 +498,7 @@ scene("level1", () => {
         anchor("center"),
       ]);
     }
+
 
     if (
       shuffledQuestions.length > currentQuestionIndex &&

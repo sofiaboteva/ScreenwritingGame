@@ -1,6 +1,6 @@
 const tutorialQuestions = [
     {
-      question:"So I've heard you want to become a screenwriter. Is that true?",
+      question:"So I've heard you want to become a screenwriter. Is that true?", 
       answers: [
         {
           text: "Yess!",
@@ -80,7 +80,7 @@ const tutorialQuestions = [
       },
 
       {
-        question:"Keep it balanced. Make sure it doesn't get too low...",
+        question:"Keep it balanced. Make sure it doesn't get too low...", highlightscores: true,
         answers: [
           {
             text: "Easy",
@@ -100,7 +100,7 @@ const tutorialQuestions = [
       },
 
       {
-        question:"...Or too high!",
+        question:"...Or too high!", highlightscores: true,
         answers: [
           {
             text: "Fair enough",
@@ -108,6 +108,7 @@ const tutorialQuestions = [
             ego: -40,
             money: -40,
             relationships: -40,
+      
           },
           {
             text: "That's not fair!",
@@ -115,6 +116,7 @@ const tutorialQuestions = [
             ego: -40,
             money: -40,
             relationships: -40,
+            highlightscores: true,
           },
         ],
       },
