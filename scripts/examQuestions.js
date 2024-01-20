@@ -303,7 +303,7 @@ const examQuestions = [
     question: "What is dramatic irony?",
     answers: [
       {
-        text: "When the audience has better knowledge of the facts then the character",
+        text: "When the audience knows more then the character",
         value: 0,
       },
       {
@@ -420,7 +420,7 @@ const examQuestions = [
         value: 1,
       },
       {
-        text: "The viewer gives you his time and money and you entertain him",
+        text: "Viewer gives you his time and money and you entertain him",
         value: 0,
       },
     ],
