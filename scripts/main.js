@@ -6,6 +6,7 @@ import tutorialQuestions from "/scripts/tutorialQuestions.js";
 
 let isLocked = false;
 let tutorialCompleted = false;
+let secondLevelUnlocked = false;
 
 let unlockedEndings = {
   universityHigh: false,
@@ -44,6 +45,41 @@ loadSprite("arrow", "/sprites/arrow.png");
 let rewardText = null;
 
 scene("start", () => {
+  const startButton = add([
+    rect(240, 80, { radius: 8 }),
+    pos(width() / 2, 150),
+    area(),
+    scale(1),
+    anchor("center"),
+    outline(4),
+  ]);
+
+  const AchievementsButton = add([
+    rect(240, 80, { radius: 8 }),
+    pos(width() / 2, 300),
+    area(),
+    scale(1),
+    anchor("center"),
+    outline(4),
+  ]);
+
+  startButton.add([text("Start"), anchor("center"), color(0, 0, 0)]);
+  AchievementsButton.add([
+    text("Achievements"),
+    anchor("center"),
+    color(0, 0, 0),
+  ]);
+
+  startButton.onClick(() => {
+    go("levels");
+  });
+
+  AchievementsButton.onClick(() => {
+    go("achievements");
+  });
+});
+
+scene("levels", () => {
   const startButton1 = add([
     rect(240, 80, { radius: 8 }),
     pos(width() / 2, 150),
@@ -53,46 +89,32 @@ scene("start", () => {
     outline(4),
   ]);
 
-  const startButton2 = add([
-    rect(240, 80, { radius: 8 }),
-    pos(width() / 2, 250),
-    area(),
-    scale(1),
-    anchor("center"),
-    outline(4),
-  ]);
-
-  const AchievementsButton = add([
-    rect(240, 80, { radius: 8 }),
-    pos(width() / 2, 350),
-    area(),
-    scale(1),
-    anchor("center"),
-    outline(4),
-  ]);
-
   startButton1.add([text("Level 1"), anchor("center"), color(0, 0, 0)]);
-  startButton2.add([text("Level 2"), anchor("center"), color(0, 0, 0)]);
-  AchievementsButton.add([
-    text("Achievements"),
-    anchor("center"),
-    color(0, 0, 0),
-  ]);
 
   startButton1.onClick(() => {
     if (tutorialCompleted) {
       go("level1");
-    } else {  
-    go("tutorial")
-  }});
-
-  startButton2.onClick(() => {
-    go("level2");
+    } else {
+      go("tutorial");
+    }
   });
 
-  AchievementsButton.onClick(() => {
-    go("achievements");
-  });
+  if (secondLevelUnlocked) {
+    const startButton2 = add([
+      rect(240, 80, { radius: 8 }),
+      pos(width() / 2, 300),
+      area(),
+      scale(1),
+      anchor("center"),
+      outline(4),
+    ]);
+
+    startButton2.add([text("Level 2"), anchor("center"), color(0, 0, 0)]);
+
+    startButton2.onClick(() => {
+      go("level2");
+    });
+  }
 });
 
 go("start");
@@ -118,7 +140,6 @@ scene("tutorial", () => {
     color(255, 255, 255),
     opacity(0), // Initially hidden
   ]);
-
 
   const universityScoreLabel = add([
     text(`University: ${universityScore}`),
@@ -154,14 +175,11 @@ scene("tutorial", () => {
     color(rgb(26, 28, 26)),
   ]);
 
-  let currentTutorialQuestionIndex = 0
+  let currentTutorialQuestionIndex = 0;
   setNextTutorialQuestion();
- 
-
-  
 
   function setNextTutorialQuestion() {
-      loadNextQuestion();
+    loadNextQuestion();
   }
 
   function loadNextQuestion() {
@@ -178,7 +196,6 @@ scene("tutorial", () => {
     isLocked = false;
   }
 
-
   function showQuestion(question) {
     questionElement.text = question.question;
     if (question.highlightscores) {
@@ -189,10 +206,7 @@ scene("tutorial", () => {
       universityFrame.opacity = 0;
     }
 
-         
-      
     question.answers.forEach((answer, index) => {
-
       let button = add([
         rect(900, 100, { radius: 8 }),
         pos(width() / 2, 450 + index * 100),
@@ -221,7 +235,7 @@ scene("tutorial", () => {
           answer.university,
           answer.ego,
           answer.money,
-          answer.relationships,
+          answer.relationships
         );
       });
 
@@ -229,20 +243,13 @@ scene("tutorial", () => {
     });
   }
 
-
-  function selectAnswer(
-    university,
-    ego,
-    money,
-    relationships,
-  ) {
+  function selectAnswer(university, ego, money, relationships) {
     universityScore += university;
     egoScore += ego;
     moneyScore += money;
     relationshipsScore += relationships;
 
     currentTutorialQuestionIndex++;
-  
 
     universityScoreLabel.text = `University: ${universityScore}`;
     egoScoreLabel.text = `Ego: ${egoScore}`;
@@ -256,18 +263,14 @@ scene("tutorial", () => {
       tutorialCompleted = true;
       go("level1");
     }
-
-
-    
   }
 
   function resetState() {
     answerButtons.forEach((button) => destroy(button));
     answerButtons = [];
-    arrow.opacity = 0
-    universityFrame.opacity = 0
+    arrow.opacity = 0;
+    universityFrame.opacity = 0;
   }
-
 });
 
 scene("level1", () => {
@@ -280,18 +283,17 @@ scene("level1", () => {
   artisticIntegrityScore = 0;
   let examFailedScore = 0;
 
-  const examLabel = add([text(""), pos(width() / 2, 200), anchor("center")]);
+  const examLabel = add([
+    text(""),
+    pos(width() / 2, 200),
+    anchor("center"),
+    color(rgb(26, 28, 26)),
+  ]);
 
   let currentQuestionIndex = 1;
   let examQuestionIndex = 1;
   let examcounter = 1;
 
-  // const UniversityScorePicture = add([
-  //   sprite("test"),
-  //   pos(50, 50),
-  //   scale(0.1),
-  //   anchor("center"),
-  // ]);
   const universityScoreLabel = add([
     text(`University: ${universityScore}`),
     pos(24, 20),
@@ -303,12 +305,7 @@ scene("level1", () => {
     pos(24, 50),
     color(rgb(26, 28, 26)),
   ]);
-  // const MoneyScorePicture = add([
-  //   sprite("dollar"),
-  //   pos(350, 50),
-  //   scale(0.1),
-  //   anchor("center"),
-  // ]);
+
   const moneyScoreLabel = add([
     text(`Money: ${moneyScore}`),
     pos(24, 80),
@@ -335,16 +332,13 @@ scene("level1", () => {
 
   let shuffledExamQuestions = examQuestions.sort(() => Math.random() - 0.5);
 
-
-  
   setNextQuestion();
-
 
   function setNextQuestion() {
     if (rewardText) {
       wait(2, () => {
         destroy(rewardText);
-        //rewardText = null;
+        rewardText = null;
         loadNextQuestion();
       });
     } else {
@@ -478,6 +472,7 @@ scene("level1", () => {
           }),
           pos(width() / 2, 150),
           anchor("center"),
+          color(rgb(26, 28, 26)),
         ]);
       }
     }
@@ -496,9 +491,9 @@ scene("level1", () => {
         }),
         pos(width() / 2, 150),
         anchor("center"),
+        color(rgb(26, 28, 26)),
       ]);
     }
-
 
     if (
       shuffledQuestions.length > currentQuestionIndex &&
@@ -554,6 +549,7 @@ scene("level1", () => {
       transitionToScene("relationshipsLow");
     } else {
       transitionToScene("win1");
+      secondLevelUnlocked = true;
     }
   }
 
@@ -562,7 +558,6 @@ scene("level1", () => {
     examcounter++;
     examFailedScore += value;
     examLabel.text = `Exam time! Questions failed: ${examFailedScore}`;
-    //console.log(examQuestionIndex);
 
     if (
       examQuestionIndex >= 15 &&
@@ -577,6 +572,7 @@ scene("level1", () => {
         }),
         pos(width() / 2, 150),
         anchor("center"),
+        color(rgb(26, 28, 26)),
       ]);
     }
     if (shuffledQuestions.length > examQuestionIndex && examFailedScore < 3) {
@@ -608,14 +604,13 @@ scene("level2", () => {
   let egoScore = 40;
   let moneyScore = 40;
   let relationshipsScore = 40;
-  //console.log(riskyChoicesMade);
-
   let mediationFailedScore = 0;
 
   const mediationLabel = add([
     text(""),
     pos(width() / 2, 200),
     anchor("center"),
+    color(rgb(26, 28, 26)),
   ]);
 
   let currentQuestionIndex = 1;
@@ -822,6 +817,7 @@ scene("level2", () => {
           }),
           pos(width() / 2, 150),
           anchor("center"),
+          color(rgb(26, 28, 26)),
         ]);
       }
     }
@@ -905,7 +901,6 @@ scene("level2", () => {
     mediationcounter++;
     mediationFailedScore += value;
     mediationLabel.text = `Job interview! Questions failed: ${mediationFailedScore}`;
-    //console.log(mediationQuestionIndex);
 
     if (
       mediationQuestionIndex >= 15 &&
@@ -920,6 +915,7 @@ scene("level2", () => {
         }),
         pos(width() / 2, 150),
         anchor("center"),
+        color(rgb(26, 28, 26)),
       ]);
     }
     if (
@@ -959,6 +955,7 @@ scene("failedInterview", () => {
       }),
       pos(width() / 2, 100),
       anchor("center"),
+      color(rgb(26, 28, 26)),
     ]);
   }
 
@@ -973,6 +970,7 @@ scene("failedInterview", () => {
     ),
     pos(width() / 2, 300),
     anchor("center"),
+    color(rgb(26, 28, 26)),
   ]);
 
   onKeyPress("space", () => go("start"));
@@ -1033,6 +1031,7 @@ scene("egoHigh", () => {
     ),
     pos(width() / 2, 300),
     anchor("center"),
+    color(rgb(26, 28, 26)),
   ]);
 
   onKeyPress("space", () => go("start"));
@@ -1050,6 +1049,7 @@ scene("moneyHigh", () => {
       }),
       pos(width() / 2, 100),
       anchor("center"),
+      color(rgb(26, 28, 26)),
     ]);
   }
   add([
@@ -1063,6 +1063,7 @@ scene("moneyHigh", () => {
     ),
     pos(width() / 2, 300),
     anchor("center"),
+    color(rgb(26, 28, 26)),
   ]);
 
   onKeyPress("space", () => go("start"));
@@ -1093,6 +1094,7 @@ scene("relationshipsHigh", () => {
     ),
     pos(width() / 2, 300),
     anchor("center"),
+    color(rgb(26, 28, 26)),
   ]);
 
   onKeyPress("space", () => go("start"));
@@ -1110,6 +1112,7 @@ scene("fameLow", () => {
       }),
       pos(width() / 2, 100),
       anchor("center"),
+      color(rgb(26, 28, 26)),
     ]);
   }
   add([
@@ -1123,6 +1126,7 @@ scene("fameLow", () => {
     ),
     pos(width() / 2, 300),
     anchor("center"),
+    color(rgb(26, 28, 26)),
   ]);
 
   onKeyPress("space", () => go("start"));
@@ -1140,6 +1144,7 @@ scene("egoLow", () => {
       }),
       pos(width() / 2, 100),
       anchor("center"),
+      color(rgb(26, 28, 26)),
     ]);
   }
   add([
@@ -1153,6 +1158,7 @@ scene("egoLow", () => {
     ),
     pos(width() / 2, 300),
     anchor("center"),
+    color(rgb(26, 28, 26)),
   ]);
 
   onKeyPress("space", () => go("start"));
@@ -1170,6 +1176,7 @@ scene("moneyLow", () => {
       }),
       pos(width() / 2, 100),
       anchor("center"),
+      color(rgb(26, 28, 26)),
     ]);
   }
   add([
@@ -1183,6 +1190,7 @@ scene("moneyLow", () => {
     ),
     pos(width() / 2, 300),
     anchor("center"),
+    color(rgb(26, 28, 26)),
   ]);
 
   onKeyPress("space", () => go("start"));
@@ -1200,6 +1208,7 @@ scene("relationshipsLow", () => {
       }),
       pos(width() / 2, 100),
       anchor("center"),
+      color(rgb(26, 28, 26)),
     ]);
   }
   add([
@@ -1213,6 +1222,7 @@ scene("relationshipsLow", () => {
     ),
     pos(width() / 2, 300),
     anchor("center"),
+    color(rgb(26, 28, 26)),
   ]);
 
   onKeyPress("space", () => go("start"));
@@ -1243,6 +1253,7 @@ scene("universityLow", () => {
     ),
     pos(width() / 2, 300),
     anchor("center"),
+    color(rgb(26, 28, 26)),
   ]);
   onKeyPress("space", () => go("start"));
   onClick(() => go("start"));
@@ -1272,6 +1283,7 @@ scene("universityHigh", () => {
     ),
     pos(width() / 2, 300),
     anchor("center"),
+    color(rgb(26, 28, 26)),
   ]);
   onKeyPress("space", () => go("start"));
   onClick(() => go("start"));
@@ -1343,6 +1355,7 @@ scene("win2", () => {
     ),
     pos(width() / 2, 300),
     anchor("center"),
+    color(rgb(26, 28, 26)),
   ]);
 
   const nextLevelButton = add([
@@ -1416,6 +1429,7 @@ scene("endings", () => {
     pos(width() / 2, yPosition),
     anchor("center"),
     { size: 30 },
+    color(rgb(26, 28, 26)),
   ]);
 
   Object.keys(unlockedEndings).forEach((endingKey) => {
@@ -1426,6 +1440,7 @@ scene("endings", () => {
         text(displayText, { size: 24 }),
         pos(width() / 2, yPosition),
         anchor("center"),
+        color(rgb(26, 28, 26)),
       ]);
     }
   });
@@ -1447,6 +1462,7 @@ scene("rewards", () => {
     pos(width() / 2, yPosition),
     anchor("center"),
     { size: 30 },
+    color(rgb(26, 28, 26)),
   ]);
 
   Object.keys(unlockedRewards).forEach((rewardKey) => {
@@ -1457,6 +1473,7 @@ scene("rewards", () => {
         text(displayText, { size: 24 }),
         pos(width() / 2, yPosition),
         anchor("center"),
+        color(rgb(26, 28, 26)),
       ]);
     }
   });
