@@ -6,7 +6,7 @@ import tutorialQuestions from "/scripts/tutorialQuestions.js";
 
 let isLocked = false;
 let tutorialCompleted = false;
-let secondLevelUnlocked = false;
+let secondLevelUnlocked = true;
 
 let unlockedEndings = {
   universityHigh: false,
