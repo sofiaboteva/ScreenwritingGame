@@ -1189,7 +1189,7 @@ scene("failedInterview", () => {
         font: "myfont",
       }
     ),
-    pos(endingText.pos.x, endingText.pos.y + 100),
+    pos(endingText ? endingText.pos.x : width() / 2, endingText ? endingText.pos.y + 100 : height() * 0.3),
     anchor("center"),
   ]);
 
@@ -1223,7 +1223,7 @@ scene("fameHigh", () => {
         font: "myfont",
       }
     ),
-    pos(endingText.pos.x, endingText.pos.y + 100),
+    pos(endingText ? endingText.pos.x : width() / 2, endingText ? endingText.pos.y + 100 : height() * 0.3),
     anchor("center"),
   ]);
 
@@ -1257,7 +1257,7 @@ scene("egoHigh", () => {
         font: "myfont",
       }
     ),
-    pos(endingText.pos.x, endingText.pos.y + 100),
+    pos(endingText ? endingText.pos.x : width() / 2, endingText ? endingText.pos.y + 100 : height() * 0.3),
     anchor("center"),
   ]);
 
@@ -1291,7 +1291,7 @@ scene("moneyHigh", () => {
         font: "myfont",
       }
     ),
-    pos(endingText.pos.x, endingText.pos.y + 100),
+    pos(endingText ? endingText.pos.x : width() / 2, endingText ? endingText.pos.y + 100 : height() * 0.3),
     anchor("center"),
   ]);
 
@@ -1325,7 +1325,7 @@ scene("relationshipsHigh", () => {
         font: "myfont",
       }
     ),
-    pos(endingText.pos.x, endingText.pos.y + 100),
+    pos(endingText ? endingText.pos.x : width() / 2, endingText ? endingText.pos.y + 100 : height() * 0.3),
     anchor("center"),
   ]);
 
@@ -1359,7 +1359,7 @@ scene("fameLow", () => {
         font: "myfont",
       }
     ),
-    pos(endingText.pos.x, endingText.pos.y + 100),
+    pos(endingText ? endingText.pos.x : width() / 2, endingText ? endingText.pos.y + 100 : height() * 0.3),
     anchor("center"),
   ]);
 
@@ -1393,7 +1393,7 @@ scene("egoLow", () => {
         font: "myfont",
       }
     ),
-    pos(endingText.pos.x, endingText.pos.y + 100),
+    pos(endingText ? endingText.pos.x : width() / 2, endingText ? endingText.pos.y + 100 : height() * 0.3),
     anchor("center"),
   ]);
 
@@ -1427,7 +1427,7 @@ scene("moneyLow", () => {
         font: "myfont",
       }
     ),
-    pos(endingText.pos.x, endingText.pos.y + 100),
+    pos(endingText ? endingText.pos.x : width() / 2, endingText ? endingText.pos.y + 100 : height() * 0.3),
     anchor("center"),
   ]);
 
@@ -1461,7 +1461,7 @@ scene("relationshipsLow", () => {
         font: "myfont",
       }
     ),
-    pos(endingText.pos.x, endingText.pos.y + 100),
+    pos(endingText ? endingText.pos.x : width() / 2, endingText ? endingText.pos.y + 100 : height() * 0.3),
     anchor("center"),
   ]);
 
@@ -1495,7 +1495,7 @@ scene("universityLow", () => {
         font: "myfont",
       }
     ),
-    pos(endingText.pos.x, endingText.pos.y + 100),
+    pos(endingText ? endingText.pos.x : width() / 2, endingText ? endingText.pos.y + 100 : height() * 0.3),
     anchor("center"),
   ]);
 
@@ -1529,7 +1529,7 @@ scene("universityHigh", () => {
         font: "myfont",
       }
     ),
-    pos(endingText.pos.x, endingText.pos.y + 100),
+    pos(endingText ? endingText.pos.x : width() / 2, endingText ? endingText.pos.y + 100 : height() * 0.3),
     anchor("center"),
   ]);
 
@@ -1563,7 +1563,7 @@ scene("win1", () => {
         font: "myfont",
       }
     ),
-    pos(endingText.pos.x, endingText.pos.y + 100),
+    pos(endingText ? endingText.pos.x : width() / 2, endingText ? endingText.pos.y + 100 : height() * 0.3),
     anchor("center"),
   ]);
 
@@ -1613,7 +1613,7 @@ scene("win2", () => {
         font: "myfont",
       }
     ),
-    pos(endingText.pos.x, endingText.pos.y + 100),
+    pos(endingText ? endingText.pos.x : width() / 2, endingText ? endingText.pos.y + 100 : height() * 0.3),
     anchor("center"),
   ]);
 
