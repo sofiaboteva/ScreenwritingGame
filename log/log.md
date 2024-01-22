@@ -25,5 +25,5 @@
 | 10.12-11.12  | Restructurer le dossier; changement de couleur, test DALL.E pour le visuel (pas réussis),                                                       | 5               |
 | 12.12        | Ajout du tutoriel                                                                                                                               | 4               |
 | 13.12        | Tutoriel complété                                                                                                                               | 4               |
-|              |                                                                                                                                                 |                 |
-| TOTAL        |                                                                                                                                                 | 131             |
+| 14.12-22.12  | Rapport + Le visuel                                                                                                                             | 35              |
+| TOTAL        |                                                                                                                                                 | 166             |
