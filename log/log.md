@@ -1,5 +1,5 @@
 | DATE         | TÂCHES                                                                                                                                          | NOMBRE D'HEURES |
-| ------------ | ----------------------------------------------------------------------------------------------------------------------------------------------- | --------------- |
+| ------------ | ----------------------------------------------------------------------------------------------------------------------------------------------- | --------------- | --- |
 | 01.03-07.06  | Conceptualisation du jeu (en cadre du cours « Jeux vidéos 2D »)                                                                                 |                 |
 | 15.06-24.06  | Recherche                                                                                                                                       | 15              |
 | 27.06-05.07  | Questions ludiques pour le 1er niveau (création du tableau excel avec des questions et des scores)                                              | 10              |
@@ -25,5 +25,5 @@
 | 10.12-11.12  | Restructurer le dossier; changement de couleur, test DALL.E pour le visuel (pas réussis),                                                       | 5               |
 | 12.12        | Ajout du tutoriel                                                                                                                               | 4               |
 | 13.12        | Tutoriel complété                                                                                                                               | 4               |
-|              |                                                                                                                                                 |                 |
-| TOTAL        |                                                                                                                                                 | 131             |
+| 14.12-22.12  | Rapport + Visuel                                                                                                                                | 30              |     |
+| TOTAL        |                                                                                                                                                 | 161             |
