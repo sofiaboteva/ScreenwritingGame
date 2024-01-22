@@ -15,3 +15,7 @@ ambition last source https://www.freepik.com/icon/target_4989967#fromView=search
 dollar https://www.freepik.com/search?format=search&icon_color=white&last_filter=query&last_value=dollar+clipart+white+on+black+backgroun&query=dollar+clipart+white+on+black+backgroun&sort=relevance&type=icon
 
 heart_last https://www.freepik.com/icon/chat_331343#fromView=search&term=love+clipart+white+on+black+backgroun&track=ais&page=1&position=60&uuid=bf3a65d8-4a44-4876-8570-47f9c8f2e5e8
+
+arrow source: https://ru.freepik.com/icon/arrow_11427331#fromView=search&term=clip+art+arrow+white+on+black+background&track=ais&page=1&position=16&uuid=66438c2f-91b5-4941-808f-30192110fc6d
+
+star source: https://ru.freepik.com/icon/web_10092762#fromView=search&term=clip+art+star+white+on+black+background&track=ais&page=1&position=23&uuid=8355a65a-9015-4c43-a827-14b4f352c0c9

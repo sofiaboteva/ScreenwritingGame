@@ -1,12 +1,35 @@
+kaboom({
+  background: [0, 0, 0],
+  width: 360,
+  height: 600,
+  root: document.getElementById("game-container"),
+});
+
 import questions from "/scripts/questions.js";
 import questions2 from "/scripts/questions2.js";
 import examQuestions from "/scripts/examQuestions.js";
 import mediationQuestions from "/scripts/mediationquestions.js";
 import tutorialQuestions from "/scripts/tutorialQuestions.js";
 
+// load sprites
+loadFont("myfont", "font/XTypewriter-Regular.ttf");
+loadSprite("book", "/assets/book.png");
+loadSprite("ego", "/assets/ambition_last.png");
+loadSprite("money", "/assets/money.png");
+loadSprite("relationships", "/assets/chat.png");
+loadSprite("star", "/assets/star.png");
+
+// Constants for relative measurements
+const PADDING = 24;
+const BUTTON_WIDTH = width() * 0.75; // 75% of the canvas width
+const BUTTON_HEIGHT = height() * 0.15; // 10% of the canvas height
+const BUTTON_SPACING = height() * 0.01; // Space between buttons
+const LABEL_VERTICAL_SPACING = width() * 0.25;
+const TEXT_SIZE = width() * 0.05; // Relative text size
+
 let isLocked = false;
 let tutorialCompleted = false;
-let secondLevelUnlocked = true;
+let secondLevelUnlocked = false;
 
 let unlockedEndings = {
   universityHigh: false,
@@ -34,244 +57,17 @@ let unlockedRewards = {
 let riskyChoicesMade = 0;
 let artisticIntegrityScore = 0;
 
-kaboom({
-  background: [243, 223, 193],
-  width: 1200,
-  height: 800,
-});
-
-loadSprite("arrow", "/sprites/arrow.png");
+loadSprite("arrow", "/assets/arrow_3.png");
 
 let rewardText = null;
 
-scene("start", () => {
-  const startButton = add([
-    rect(240, 80, { radius: 8 }),
-    pos(width() / 2, 150),
-    area(),
-    scale(1),
-    anchor("center"),
-    outline(4),
-  ]);
-
-  const AchievementsButton = add([
-    rect(240, 80, { radius: 8 }),
-    pos(width() / 2, 300),
-    area(),
-    scale(1),
-    anchor("center"),
-    outline(4),
-  ]);
-
-  startButton.add([text("Start"), anchor("center"), color(0, 0, 0)]);
-  AchievementsButton.add([
-    text("Achievements"),
-    anchor("center"),
-    color(0, 0, 0),
-  ]);
-
-  startButton.onClick(() => {
-    go("levels");
-  });
-
-  AchievementsButton.onClick(() => {
-    go("achievements");
-  });
-});
-
-scene("levels", () => {
-  const startButton1 = add([
-    rect(240, 80, { radius: 8 }),
-    pos(width() / 2, 150),
-    area(),
-    scale(1),
-    anchor("center"),
-    outline(4),
-  ]);
-
-  startButton1.add([text("Level 1"), anchor("center"), color(0, 0, 0)]);
-
-  startButton1.onClick(() => {
-    if (tutorialCompleted) {
-      go("level1");
-    } else {
-      go("tutorial");
-    }
-  });
-
-  if (secondLevelUnlocked) {
-    const startButton2 = add([
-      rect(240, 80, { radius: 8 }),
-      pos(width() / 2, 300),
-      area(),
-      scale(1),
-      anchor("center"),
-      outline(4),
-    ]);
-
-    startButton2.add([text("Level 2"), anchor("center"), color(0, 0, 0)]);
-
-    startButton2.onClick(() => {
-      go("level2");
-    });
-  }
-});
-
-go("start");
-
-scene("tutorial", () => {
-  let answerButtons = [];
-  let universityScore = 40;
-  let egoScore = 40;
-  let moneyScore = 40;
-  let relationshipsScore = 40;
-  let arrow = add([
-    sprite("arrow"),
-    pos(400, 70),
-    scale(0.1),
-    anchor("center"),
-    rotate(180),
-    opacity(0), // Initially hidden
-  ]);
-
-  let universityFrame = add([
-    rect(350, 130, { radius: 8 }),
-    pos(10, 15),
-    color(255, 255, 255),
-    opacity(0), // Initially hidden
-  ]);
-
-  const universityScoreLabel = add([
-    text(`University: ${universityScore}`),
-    pos(24, 20),
-    color(rgb(26, 28, 26)),
-  ]);
-
-  const egoScoreLabel = add([
-    text(`Ego: ${egoScore}`),
-    pos(24, 50),
-    color(rgb(26, 28, 26)),
-  ]);
-
-  const moneyScoreLabel = add([
-    text(`Money: ${moneyScore}`),
-    pos(24, 80),
-    color(rgb(26, 28, 26)),
-  ]);
-  const relationshipsScoreLabel = add([
-    text(`Relationships: ${relationshipsScore}`),
-    pos(24, 110),
-    color(rgb(26, 28, 26)),
-  ]);
-
-  const questionElement = add([
-    text("Question", {
-      width: width() - 500,
-      wrap: true,
-      size: 30,
-    }),
-    pos(width() / 2, 300),
-    anchor("center"),
-    color(rgb(26, 28, 26)),
-  ]);
-
-  let currentTutorialQuestionIndex = 0;
-  setNextTutorialQuestion();
-
-  function setNextTutorialQuestion() {
-    loadNextQuestion();
-  }
-
-  function loadNextQuestion() {
-    resetState();
-
-    if (currentTutorialQuestionIndex < tutorialQuestions.length) {
-      showQuestion(tutorialQuestions[currentTutorialQuestionIndex]);
-    } else {
-      // Tutorial completed, transition to main game
-      tutorialCompleted = true;
-      go("level1");
-    }
-
-    isLocked = false;
-  }
-
-  function showQuestion(question) {
-    questionElement.text = question.question;
-    if (question.highlightscores) {
-      arrow.opacity = 1; // Show the arrow
-      universityFrame.opacity = 1;
-    } else {
-      arrow.opacity = 0; // Hide the arrow
-      universityFrame.opacity = 0;
-    }
-
-    question.answers.forEach((answer, index) => {
-      let button = add([
-        rect(900, 100, { radius: 8 }),
-        pos(width() / 2, 450 + index * 100),
-        area(),
-        scale(1),
-        anchor("center"),
-        outline(4),
-      ]);
-
-      button.add([
-        text(answer.text, { size: 25 }),
-        anchor("center"),
-        color(0, 0, 0),
-      ]);
-
-      button.value1 = answer.university;
-      button.value2 = answer.ego;
-      button.value3 = answer.money;
-      button.value4 = answer.relationships;
-
-      button.onClick(() => {
-        if (isLocked) return; // If locked, do not process the click
-
-        isLocked = true; // Lock input processing once the button is clicked
-        selectAnswer(
-          answer.university,
-          answer.ego,
-          answer.money,
-          answer.relationships
-        );
-      });
-
-      answerButtons.push(button);
-    });
-  }
-
-  function selectAnswer(university, ego, money, relationships) {
-    universityScore += university;
-    egoScore += ego;
-    moneyScore += money;
-    relationshipsScore += relationships;
-
-    currentTutorialQuestionIndex++;
-
-    universityScoreLabel.text = `University: ${universityScore}`;
-    egoScoreLabel.text = `Ego: ${egoScore}`;
-    moneyScoreLabel.text = `Money: ${moneyScore}`;
-    relationshipsScoreLabel.text = `Relationships: ${relationshipsScore}`;
-
-    if (currentTutorialQuestionIndex < tutorialQuestions.length) {
-      wait(0.05, setNextTutorialQuestion);
-    } else {
-      // Tutorial completed, transition to main game
-      tutorialCompleted = true;
-      go("level1");
-    }
-  }
-
-  function resetState() {
-    answerButtons.forEach((button) => destroy(button));
-    answerButtons = [];
-    arrow.opacity = 0;
-    universityFrame.opacity = 0;
-  }
-});
+// General function to position indicators
+function getLabelPosition(labelIndex) {
+  return {
+    x: PADDING * 1.5 + labelIndex * LABEL_VERTICAL_SPACING,
+    y: PADDING * 1.5,
+  };
+}
 
 scene("level1", () => {
   let answerButtons = [];
@@ -282,50 +78,84 @@ scene("level1", () => {
   riskyChoicesMade = 0;
   artisticIntegrityScore = 0;
   let examFailedScore = 0;
+  const questionElement = add([
+    text("Question", {
+      width: width() - PADDING * 2, // Padding from both sides
+      wrap: true,
+      size: TEXT_SIZE,
+      font: "myfont",
+    }),
+    pos(width() / 2, height() * 0.35), // Positioning relatively
+    anchor("center"),
+  ]);
 
   const examLabel = add([
-    text(""),
-    pos(width() / 2, 200),
+    text("", {
+      width: width() - PADDING * 2, // Padding from both sides
+      wrap: true,
+      size: TEXT_SIZE,
+      font: "myfont",
+    }),
+    //   pos(width() / 2, height() * 0.35),
+    pos(questionElement.pos.x, questionElement.pos.y - 50),
     anchor("center"),
-    color(rgb(26, 28, 26)),
+    color(255, 255, 255),
   ]);
 
   let currentQuestionIndex = 1;
   let examQuestionIndex = 1;
   let examcounter = 1;
 
+  const UniversityScorePicture = add([
+    sprite("book"),
+    scale(0.2),
+    pos(getLabelPosition(0).x + 15, getLabelPosition(0).y),
+    anchor("center"),
+  ]);
+
   const universityScoreLabel = add([
-    text(`University: ${universityScore}`),
-    pos(24, 20),
-    color(rgb(26, 28, 26)),
+    text(`${universityScore}`, { size: TEXT_SIZE }),
+
+    pos(UniversityScorePicture.pos.x * 0.8, UniversityScorePicture.pos.y * 1.8),
+  ]);
+
+  const EgoScorePicture = add([
+    sprite("ego"),
+    scale(0.16),
+    pos(getLabelPosition(1).x + 15, getLabelPosition(1).y - 4),
+    anchor("center"),
   ]);
 
   const egoScoreLabel = add([
-    text(`Ego: ${egoScore}`),
-    pos(24, 50),
-    color(rgb(26, 28, 26)),
+    text(`${egoScore}`, { size: TEXT_SIZE }),
+    pos(EgoScorePicture.pos.x * 0.9, EgoScorePicture.pos.y * 2),
+  ]);
+
+  const MoneyScorePicture = add([
+    sprite("money"),
+    scale(0.2),
+    pos(getLabelPosition(2).x + 10, getLabelPosition(2).y - 2),
+    anchor("center"),
   ]);
 
   const moneyScoreLabel = add([
-    text(`Money: ${moneyScore}`),
-    pos(24, 80),
-    color(rgb(26, 28, 26)),
-  ]);
-  const relationshipsScoreLabel = add([
-    text(`Relationships: ${relationshipsScore}`),
-    pos(24, 110),
-    color(rgb(26, 28, 26)),
+    text(`${moneyScore}`, { size: TEXT_SIZE }),
+    pos(MoneyScorePicture.pos.x * 0.95, MoneyScorePicture.pos.y * 1.9),
   ]);
 
-  const questionElement = add([
-    text("Question", {
-      width: width() - 500,
-      wrap: true,
-      size: 30,
-    }),
-    pos(width() / 2, 300),
+  const RelationshipsScorePicture = add([
+    sprite("relationships"),
+    scale(0.18),
+    pos(getLabelPosition(3).x + 5, getLabelPosition(3).y - 2),
     anchor("center"),
-    color(rgb(26, 28, 26)),
+  ]);
+
+  const relationshipsScoreLabel = add([
+    text(`${relationshipsScore}`, { size: TEXT_SIZE }),
+    pos(
+      RelationshipsScorePicture.pos.x * 0.95,
+      RelationshipsScorePicture.pos.y * 1.9
+    ),
   ]);
 
   let shuffledQuestions = questions.sort(() => Math.random() - 0.5);
@@ -367,16 +197,26 @@ scene("level1", () => {
     questionElement.text = question.question;
     question.answers.forEach((answer, index) => {
       let button = add([
-        rect(900, 100, { radius: 8 }),
-        pos(width() / 2, 450 + index * 100),
+        rect(BUTTON_WIDTH, BUTTON_HEIGHT, { radius: 2 }),
+        pos(
+          width() / 2,
+          height() / 1.8 + index * (BUTTON_HEIGHT + BUTTON_SPACING)
+        ),
         area(),
         scale(1),
         anchor("center"),
         outline(4),
       ]);
 
+      const maxTextWidth = BUTTON_WIDTH - PADDING * 2;
+
       button.add([
-        text(answer.text, { size: 25 }),
+        text(answer.text, {
+          size: width() * 0.05,
+          width: maxTextWidth,
+          wrap: true,
+          font: "myfont",
+        }),
         anchor("center"),
         color(0, 0, 0),
       ]);
@@ -404,20 +244,30 @@ scene("level1", () => {
   }
 
   function showExamQuestion(question) {
-    examLabel.text = `Exam time! Questions failed: ${examFailedScore}`;
+    examLabel.text = `Exams! Questions failed: ${examFailedScore}`;
     questionElement.text = question.question;
     question.answers.forEach((answer, index) => {
       let button = add([
-        rect(900, 100, { radius: 8 }),
-        pos(width() / 2, 450 + index * 100),
+        rect(BUTTON_WIDTH, BUTTON_HEIGHT, { radius: 2 }),
+        pos(
+          width() / 2,
+          height() / 1.8 + index * (BUTTON_HEIGHT + BUTTON_SPACING)
+        ),
         area(),
         scale(1),
         anchor("center"),
         outline(4),
       ]);
 
+      const maxTextWidth = BUTTON_WIDTH - PADDING * 2;
+
       button.add([
-        text(answer.text, { size: 25 }),
+        text(answer.text, {
+          size: width() * 0.05,
+          width: maxTextWidth,
+          wrap: true,
+          font: "myfont",
+        }),
         anchor("center"),
         color(0, 0, 0),
       ]);
@@ -449,10 +299,10 @@ scene("level1", () => {
     currentQuestionIndex++;
     //console.log(artisticIntegrityScore);
 
-    universityScoreLabel.text = `University: ${universityScore}`;
-    egoScoreLabel.text = `Ego: ${egoScore}`;
-    moneyScoreLabel.text = `Money: ${moneyScore}`;
-    relationshipsScoreLabel.text = `Relationships: ${relationshipsScore}`;
+    universityScoreLabel.text = `${universityScore}`;
+    egoScoreLabel.text = `${egoScore}`;
+    moneyScoreLabel.text = `${moneyScore}`;
+    relationshipsScoreLabel.text = `${relationshipsScore}`;
 
     if (
       Math.abs(university) >= 20 ||
@@ -467,12 +317,15 @@ scene("level1", () => {
         unlockedRewards.riskTaker = true;
         rewardText = add([
           text("Reward unlocked: Risk Taker", {
-            width: width() - 500,
-            size: 30,
+            width: width() - PADDING * 2, // Padding from both sides
+            wrap: true,
+            size: TEXT_SIZE,
+            font: "myfont",
           }),
-          pos(width() / 2, 150),
+          //   pos(width() / 2, height() * 0.35),
+          pos(questionElement.pos.x, questionElement.pos.y - 70),
           anchor("center"),
-          color(rgb(26, 28, 26)),
+          color(255, 255, 255),
         ]);
       }
     }
@@ -486,30 +339,33 @@ scene("level1", () => {
       unlockedRewards.artisticIntegrity = true;
       rewardText = add([
         text("Reward unlocked: Artistic Integrity", {
-          width: width() - 500,
-          size: 30,
+          width: width() - PADDING * 2, // Padding from both sides
+          wrap: true,
+          size: width() * 0.06,
+          font: "myfont",
         }),
-        pos(width() / 2, 150),
+        //   pos(width() / 2, height() * 0.35),
+        pos(questionElement.pos.x, questionElement.pos.y - 70),
         anchor("center"),
-        color(rgb(26, 28, 26)),
+        color(255, 255, 255),
       ]);
     }
 
     if (
       shuffledQuestions.length > currentQuestionIndex &&
       0 < universityScore &&
-      universityScore < 90 &&
+      universityScore < 80 &&
       0 < egoScore &&
-      egoScore < 90 &&
+      egoScore < 80 &&
       0 < moneyScore &&
-      moneyScore < 90 &&
+      moneyScore < 80 &&
       0 < relationshipsScore &&
-      relationshipsScore < 90
+      relationshipsScore < 80
     ) {
       wait(0.05, setNextQuestion);
     } else if (
       shuffledQuestions.length > currentQuestionIndex &&
-      universityScore >= 90
+      universityScore >= 80
     ) {
       transitionToScene("universityHigh");
     } else if (
@@ -519,7 +375,7 @@ scene("level1", () => {
       go("universityLow");
     } else if (
       shuffledQuestions.length > currentQuestionIndex &&
-      egoScore >= 90
+      egoScore >= 80
     ) {
       transitionToScene("egoHigh");
     } else if (
@@ -529,7 +385,7 @@ scene("level1", () => {
       transitionToScene("egoLow");
     } else if (
       shuffledQuestions.length > currentQuestionIndex &&
-      moneyScore >= 90
+      moneyScore >= 80
     ) {
       transitionToScene("moneyHigh");
     } else if (
@@ -539,7 +395,7 @@ scene("level1", () => {
       transitionToScene("moneyLow");
     } else if (
       shuffledQuestions.length > currentQuestionIndex &&
-      relationshipsScore >= 90
+      relationshipsScore >= 80
     ) {
       transitionToScene("relationshipsHigh");
     } else if (
@@ -557,7 +413,7 @@ scene("level1", () => {
     examQuestionIndex++;
     examcounter++;
     examFailedScore += value;
-    examLabel.text = `Exam time! Questions failed: ${examFailedScore}`;
+    examLabel.text = `Exams! Questions failed: ${examFailedScore}`;
 
     if (
       examQuestionIndex >= 15 &&
@@ -567,12 +423,14 @@ scene("level1", () => {
       unlockedRewards.bigHead = true;
       rewardText = add([
         text("Reward unlocked: Big Head", {
-          width: width() - 500,
-          size: 30,
+          width: width() - PADDING * 2, // Padding from both sides
+          wrap: true,
+          size: width() * 0.055,
+          font: "myfont",
         }),
-        pos(width() / 2, 150),
+        pos(examLabel.pos.x, examLabel.pos.y - 50),
         anchor("center"),
-        color(rgb(26, 28, 26)),
+        color(255, 255, 255),
       ]);
     }
     if (shuffledQuestions.length > examQuestionIndex && examFailedScore < 3) {
@@ -598,6 +456,289 @@ scene("level1", () => {
   }
 });
 
+scene("start", () => {
+  const title = add([
+    text("Screenwriting Game", {
+      width: width() - PADDING * 2,
+      wrap: true,
+      size: width() * 0.11,
+      font: "myfont",
+    }),
+    pos(width() / 2, height() * 0.2), // Positioning relatively
+    anchor("center"),
+  ]);
+
+  const startButton = add([
+    rect(BUTTON_WIDTH, BUTTON_HEIGHT, { radius: 2 }),
+    pos(width() / 2, height() / 4 + (BUTTON_HEIGHT + BUTTON_SPACING)),
+    area(),
+    scale(1),
+    anchor("center"),
+    outline(4),
+  ]);
+
+  const AchievementsButton = add([
+    rect(BUTTON_WIDTH, BUTTON_HEIGHT, { radius: 2 }),
+    pos(width() / 2, height() / 4 + 2 * (BUTTON_HEIGHT + BUTTON_SPACING)),
+    area(),
+    scale(1),
+    anchor("center"),
+    outline(4),
+  ]);
+
+  startButton.add([
+    text("Start", { font: "myfont" }),
+    anchor("center"),
+    color(0, 0, 0),
+  ]);
+  AchievementsButton.add([
+    text("Achievements", { font: "myfont" }),
+    anchor("center"),
+    color(0, 0, 0),
+  ]);
+
+  startButton.onClick(() => {
+    go("levels");
+  });
+
+  AchievementsButton.onClick(() => {
+    go("achievements");
+  });
+});
+
+scene("levels", () => {
+  const startButton1 = add([
+    rect(BUTTON_WIDTH, BUTTON_HEIGHT, { radius: 2 }),
+    pos(width() / 2, height() / 4 + (BUTTON_HEIGHT + BUTTON_SPACING)),
+    area(),
+    scale(1),
+    anchor("center"),
+    outline(4),
+  ]);
+
+  startButton1.add([
+    text("Level 1", { font: "myfont" }),
+    anchor("center"),
+    color(0, 0, 0),
+  ]);
+
+  startButton1.onClick(() => {
+    if (tutorialCompleted) {
+      go("level1");
+    } else {
+      go("tutorial");
+    }
+  });
+
+  if (secondLevelUnlocked) {
+    const startButton2 = add([
+      rect(BUTTON_WIDTH, BUTTON_HEIGHT, { radius: 2 }),
+      pos(width() / 2, height() / 4 + 2 * (BUTTON_HEIGHT + BUTTON_SPACING)),
+      area(),
+      scale(1),
+      anchor("center"),
+      outline(4),
+    ]);
+
+    startButton2.add([
+      text("Level 2", { font: "myfont" }),
+      anchor("center"),
+      color(0, 0, 0),
+    ]);
+
+    startButton2.onClick(() => {
+      go("level2");
+    });
+  }
+});
+
+go("start");
+
+scene("tutorial", () => {
+  let answerButtons = [];
+  let universityScore = 40;
+  let egoScore = 40;
+  let moneyScore = 40;
+  let relationshipsScore = 40;
+  // ??????
+
+  const UniversityScorePicture = add([
+    sprite("book"),
+    scale(0.2),
+    pos(getLabelPosition(0).x + 15, getLabelPosition(0).y),
+    anchor("center"),
+  ]);
+
+  const universityScoreLabel = add([
+    text(`${universityScore}`, { size: TEXT_SIZE }),
+
+    pos(UniversityScorePicture.pos.x * 0.8, UniversityScorePicture.pos.y * 1.8),
+  ]);
+
+  const EgoScorePicture = add([
+    sprite("ego"),
+    scale(0.16),
+    pos(getLabelPosition(1).x + 15, getLabelPosition(1).y - 4),
+    anchor("center"),
+  ]);
+
+  const egoScoreLabel = add([
+    text(`${egoScore}`, { size: TEXT_SIZE }),
+    pos(EgoScorePicture.pos.x * 0.9, EgoScorePicture.pos.y * 2),
+  ]);
+
+  const MoneyScorePicture = add([
+    sprite("money"),
+    scale(0.2),
+    pos(getLabelPosition(2).x + 10, getLabelPosition(2).y - 2),
+    anchor("center"),
+  ]);
+
+  const moneyScoreLabel = add([
+    text(`${moneyScore}`, { size: TEXT_SIZE }),
+    pos(MoneyScorePicture.pos.x * 0.95, MoneyScorePicture.pos.y * 1.9),
+  ]);
+
+  const RelationshipsScorePicture = add([
+    sprite("relationships"),
+    scale(0.18),
+    pos(getLabelPosition(3).x + 5, getLabelPosition(3).y - 2),
+    anchor("center"),
+  ]);
+
+  const relationshipsScoreLabel = add([
+    text(`${relationshipsScore}`, { size: TEXT_SIZE }),
+    pos(
+      RelationshipsScorePicture.pos.x * 0.95,
+      RelationshipsScorePicture.pos.y * 1.9
+    ),
+  ]);
+
+  const questionElement = add([
+    text("Question", {
+      width: width() - PADDING * 2, // Padding from both sides
+      wrap: true,
+      size: TEXT_SIZE,
+      font: "myfont",
+    }),
+    pos(width() / 2, height() * 0.35), // Positioning relatively
+    anchor("center"),
+  ]);
+
+  let arrow = add([
+    sprite("arrow"),
+    pos(questionElement.pos.x, questionElement.pos.y - 70),
+    scale(0.1),
+    anchor("center"),
+    //rotate(180),
+    opacity(0), // Initially hidden
+  ]);
+
+  let currentTutorialQuestionIndex = 0;
+  setNextTutorialQuestion();
+
+  function setNextTutorialQuestion() {
+    loadNextQuestion();
+  }
+
+  function loadNextQuestion() {
+    resetState();
+
+    if (currentTutorialQuestionIndex < tutorialQuestions.length) {
+      showQuestion(tutorialQuestions[currentTutorialQuestionIndex]);
+    } else {
+      // Tutorial completed, transition to main game
+      tutorialCompleted = true;
+      go("level1");
+    }
+
+    isLocked = false;
+  }
+
+  function showQuestion(question) {
+    questionElement.text = question.question;
+    if (question.highlightscores) {
+      arrow.opacity = 1; // Show the arrow
+    } else {
+      arrow.opacity = 0; // Hide the arrow
+    }
+
+    question.answers.forEach((answer, index) => {
+      let button = add([
+        rect(BUTTON_WIDTH, BUTTON_HEIGHT, { radius: 2 }),
+        pos(
+          width() / 2,
+          height() / 1.8 + index * (BUTTON_HEIGHT + BUTTON_SPACING)
+        ),
+        area(),
+        scale(1),
+        anchor("center"),
+        outline(4),
+      ]);
+
+      const maxTextWidth = BUTTON_WIDTH - PADDING * 2;
+
+      button.add([
+        text(answer.text, {
+          size: width() * 0.05,
+          width: maxTextWidth,
+          wrap: true,
+          font: "myfont",
+        }),
+        anchor("center"),
+        color(0, 0, 0),
+      ]);
+
+      button.value1 = answer.university;
+      button.value2 = answer.ego;
+      button.value3 = answer.money;
+      button.value4 = answer.relationships;
+
+      button.onClick(() => {
+        if (isLocked) return; // If locked, do not process the click
+
+        isLocked = true; // Lock input processing once the button is clicked
+        selectAnswer(
+          answer.university,
+          answer.ego,
+          answer.money,
+          answer.relationships
+        );
+      });
+
+      answerButtons.push(button);
+    });
+  }
+
+  function selectAnswer(university, ego, money, relationships) {
+    universityScore += university;
+    egoScore += ego;
+    moneyScore += money;
+    relationshipsScore += relationships;
+
+    currentTutorialQuestionIndex++;
+
+    universityScoreLabel.text = `${universityScore}`;
+    egoScoreLabel.text = `${egoScore}`;
+    moneyScoreLabel.text = `${moneyScore}`;
+    relationshipsScoreLabel.text = `${relationshipsScore}`;
+
+    if (currentTutorialQuestionIndex < tutorialQuestions.length) {
+      wait(0.05, setNextTutorialQuestion);
+    } else {
+      // Tutorial completed, transition to main game
+      tutorialCompleted = true;
+      go("level1");
+    }
+  }
+
+  function resetState() {
+    answerButtons.forEach((button) => destroy(button));
+    answerButtons = [];
+    arrow.opacity = 0;
+  }
+});
+
 scene("level2", () => {
   let answerButtons = [];
   let fameScore = 40;
@@ -606,47 +747,81 @@ scene("level2", () => {
   let relationshipsScore = 40;
   let mediationFailedScore = 0;
 
-  const mediationLabel = add([
-    text(""),
-    pos(width() / 2, 200),
-    anchor("center"),
-    color(rgb(26, 28, 26)),
-  ]);
-
   let currentQuestionIndex = 1;
   let mediationQuestionIndex = 1;
   let mediationcounter = 1;
 
+  const fameScorePicture = add([
+    sprite("star"),
+    scale(0.2),
+    pos(getLabelPosition(0).x + 15, getLabelPosition(0).y),
+    anchor("center"),
+  ]);
+
   const fameScoreLabel = add([
-    text(`Fame: ${fameScore}`),
-    pos(24, 20),
-    color(rgb(26, 28, 26)),
+    text(`${fameScore}`, { size: TEXT_SIZE }),
+
+    pos(fameScorePicture.pos.x * 0.8, fameScorePicture.pos.y * 1.8),
   ]);
+  const EgoScorePicture = add([
+    sprite("ego"),
+    scale(0.16),
+    pos(getLabelPosition(1).x + 15, getLabelPosition(1).y - 4),
+    anchor("center"),
+  ]);
+
   const egoScoreLabel = add([
-    text(`Ego: ${egoScore}`),
-    pos(24, 50),
-    color(rgb(26, 28, 26)),
+    text(`${egoScore}`, { size: TEXT_SIZE }),
+    pos(EgoScorePicture.pos.x * 0.9, EgoScorePicture.pos.y * 2),
   ]);
+
+  const MoneyScorePicture = add([
+    sprite("money"),
+    scale(0.2),
+    pos(getLabelPosition(2).x + 10, getLabelPosition(2).y - 2),
+    anchor("center"),
+  ]);
+
   const moneyScoreLabel = add([
-    text(`Money: ${moneyScore}`),
-    pos(24, 80),
-    color(rgb(26, 28, 26)),
+    text(`${moneyScore}`, { size: TEXT_SIZE }),
+    pos(MoneyScorePicture.pos.x * 0.95, MoneyScorePicture.pos.y * 1.9),
   ]);
+  const RelationshipsScorePicture = add([
+    sprite("relationships"),
+    scale(0.18),
+    pos(getLabelPosition(3).x + 5, getLabelPosition(3).y - 2),
+    anchor("center"),
+  ]);
+
   const relationshipsScoreLabel = add([
-    text(`Relationships: ${relationshipsScore}`),
-    pos(24, 110),
-    color(rgb(26, 28, 26)),
+    text(`${relationshipsScore}`, { size: TEXT_SIZE }),
+    pos(
+      RelationshipsScorePicture.pos.x * 0.95,
+      RelationshipsScorePicture.pos.y * 1.9
+    ),
   ]);
 
   const questionElement = add([
     text("Question", {
-      width: width() - 500,
+      width: width() - PADDING * 2, // Padding from both sides
       wrap: true,
-      size: 30,
+      size: TEXT_SIZE,
+      font: "myfont",
     }),
-    pos(width() / 2, 300),
+    pos(width() / 2, height() * 0.35), // Positioning relatively
     anchor("center"),
-    color(rgb(26, 28, 26)),
+  ]);
+
+  const mediationLabel = add([
+    text("", {
+      width: width() - PADDING * 2, // Padding from both sides
+      wrap: true,
+      size: TEXT_SIZE,
+      font: "myfont",
+    }),
+    pos(questionElement.pos.x, questionElement.pos.y - 60),
+    anchor("center"),
+    color(255, 255, 255),
   ]);
 
   let shuffledQuestions = questions2.sort(() => Math.random() - 0.5);
@@ -715,20 +890,29 @@ scene("level2", () => {
 
   function showQuestion(question) {
     mediationLabel.text = "";
-
     questionElement.text = question.question;
     question.answers.forEach((answer, index) => {
       let button = add([
-        rect(900, 100, { radius: 8 }),
-        pos(width() / 2, 450 + index * 100),
+        rect(BUTTON_WIDTH, BUTTON_HEIGHT, { radius: 2 }),
+        pos(
+          width() / 2,
+          height() / 1.8 + index * (BUTTON_HEIGHT + BUTTON_SPACING)
+        ),
         area(),
         scale(1),
         anchor("center"),
         outline(4),
       ]);
 
+      const maxTextWidth = BUTTON_WIDTH - PADDING * 2;
+
       button.add([
-        text(answer.text, { size: 25 }),
+        text(answer.text, {
+          size: width() * 0.05,
+          width: maxTextWidth,
+          wrap: true,
+          font: "myfont",
+        }),
         anchor("center"),
         color(0, 0, 0),
       ]);
@@ -760,16 +944,26 @@ scene("level2", () => {
     questionElement.text = question.question;
     question.answers.forEach((answer, index) => {
       let button = add([
-        rect(900, 100, { radius: 8 }),
-        pos(width() / 2, 450 + index * 100),
+        rect(BUTTON_WIDTH, BUTTON_HEIGHT, { radius: 2 }),
+        pos(
+          width() / 2,
+          height() / 1.8 + index * (BUTTON_HEIGHT + BUTTON_SPACING)
+        ),
         area(),
         scale(1),
         anchor("center"),
         outline(4),
       ]);
 
+      const maxTextWidth = BUTTON_WIDTH - PADDING * 2;
+
       button.add([
-        text(answer.text, { size: 25 }),
+        text(answer.text, {
+          size: width() * 0.05,
+          width: maxTextWidth,
+          wrap: true,
+          font: "myfont",
+        }),
         anchor("center"),
         color(0, 0, 0),
       ]);
@@ -795,10 +989,10 @@ scene("level2", () => {
 
     currentQuestionIndex++;
 
-    fameScoreLabel.text = `Fame: ${fameScore}`;
-    egoScoreLabel.text = `Ego: ${egoScore}`;
-    moneyScoreLabel.text = `Money: ${moneyScore}`;
-    relationshipsScoreLabel.text = `Relationships: ${relationshipsScore}`;
+    fameScoreLabel.text = `${fameScore}`;
+    egoScoreLabel.text = `${egoScore}`;
+    moneyScoreLabel.text = `${moneyScore}`;
+    relationshipsScoreLabel.text = `${relationshipsScore}`;
 
     if (
       Math.abs(fame) >= 20 ||
@@ -812,12 +1006,15 @@ scene("level2", () => {
         unlockedRewards.riskTaker = true;
         rewardText = add([
           text("Reward unlocked: Risk Taker", {
-            width: width() - 500,
-            size: 30,
+            width: width() - PADDING * 2, // Padding from both sides
+            wrap: true,
+            size: TEXT_SIZE,
+            font: "myfont",
           }),
-          pos(width() / 2, 150),
+          //   pos(width() / 2, height() * 0.35),
+          pos(questionElement.pos.x, questionElement.pos.y - 70),
           anchor("center"),
-          color(rgb(26, 28, 26)),
+          color(255, 255, 255),
         ]);
       }
     }
@@ -831,29 +1028,33 @@ scene("level2", () => {
       unlockedRewards.artisticIntegrity = true;
       rewardText = add([
         text("Reward unlocked: Artistic Integrity", {
-          width: width() - 500,
-          size: 30,
+          width: width() - PADDING * 2, // Padding from both sides
+          wrap: true,
+          size: width() * 0.06,
+          font: "myfont",
         }),
-        pos(width() / 2, 150),
+        //   pos(width() / 2, height() * 0.35),
+        pos(questionElement.pos.x, questionElement.pos.y - 70),
         anchor("center"),
+        color(255, 255, 255),
       ]);
     }
 
     if (
       shuffledQuestions.length > currentQuestionIndex &&
       0 < fameScore &&
-      fameScore < 90 &&
+      fameScore < 80 &&
       0 < egoScore &&
-      egoScore < 90 &&
+      egoScore < 80 &&
       0 < moneyScore &&
-      moneyScore < 90 &&
+      moneyScore < 80 &&
       0 < relationshipsScore &&
-      relationshipsScore < 90
+      relationshipsScore < 80
     ) {
       wait(0.05, setNextQuestion);
     } else if (
       shuffledQuestions.length > currentQuestionIndex &&
-      fameScore >= 90
+      fameScore >= 80
     ) {
       transitionToScene("fameHigh");
     } else if (
@@ -863,7 +1064,7 @@ scene("level2", () => {
       transitionToScene("fameLow");
     } else if (
       shuffledQuestions.length > currentQuestionIndex &&
-      egoScore >= 90
+      egoScore >= 80
     ) {
       transitionToScene("egoHigh");
     } else if (
@@ -873,7 +1074,7 @@ scene("level2", () => {
       transitionToScene("egoLow");
     } else if (
       shuffledQuestions.length > currentQuestionIndex &&
-      moneyScore >= 90
+      moneyScore >= 80
     ) {
       transitionToScene("moneyHigh");
     } else if (
@@ -883,7 +1084,7 @@ scene("level2", () => {
       transitionToScene("moneyLow");
     } else if (
       shuffledQuestions.length > currentQuestionIndex &&
-      relationshipsScore >= 90
+      relationshipsScore >= 80
     ) {
       transitionToScene("relationshipsHigh");
     } else if (
@@ -910,12 +1111,14 @@ scene("level2", () => {
       unlockedRewards.bigHead = true;
       rewardText = add([
         text("Reward unlocked: Big Head", {
-          width: width() - 500,
-          size: 30,
+          width: width() - PADDING * 2, // Padding from both sides
+          wrap: true,
+          size: width() * 0.055,
+          font: "myfont",
         }),
-        pos(width() / 2, 150),
+        pos(mediationLabel.pos.x, mediationLabel.pos.y - 50),
         anchor("center"),
-        color(rgb(26, 28, 26)),
+        color(255, 255, 255),
       ]);
     }
     if (
@@ -945,17 +1148,19 @@ scene("level2", () => {
 });
 
 scene("failedInterview", () => {
+  let endingText = null;
   if (!unlockedEndings.failedInterview) {
     endingsScore++;
     unlockedEndings.failedInterview = true;
-    add([
+    endingText = add([
       text("New ending unlocked!", {
-        width: width() - 500,
-        size: 30,
+        width: width() - PADDING * 2, // Padding from both sides
+        wrap: true,
+        size: width() * 0.06,
+        font: "myfont",
       }),
-      pos(width() / 2, 100),
+      pos(width() / 2, height() * 0.2),
       anchor("center"),
-      color(rgb(26, 28, 26)),
     ]);
   }
 
@@ -963,14 +1168,14 @@ scene("failedInterview", () => {
     text(
       "You've failed another job interview. It's becoming clear: maybe it's time to hit the books and truly learn about the industry you're diving into?",
       {
-        width: width() - 500,
+        width: width() - PADDING * 2, // Padding from both sides
         wrap: true,
-        size: 30,
+        size: TEXT_SIZE,
+        font: "myfont",
       }
     ),
-    pos(width() / 2, 300),
+    pos(endingText.pos.x, endingText.pos.y + 100),
     anchor("center"),
-    color(rgb(26, 28, 26)),
   ]);
 
   onKeyPress("space", () => go("start"));
@@ -978,15 +1183,18 @@ scene("failedInterview", () => {
 });
 
 scene("fameHigh", () => {
+  let endingText = null;
   if (!unlockedEndings.fameHigh) {
     endingsScore++;
     unlockedEndings.fameHigh = true;
-    add([
+    endingText = add([
       text("New ending unlocked!", {
-        width: width() - 500,
-        size: 30,
+        width: width() - PADDING * 2, // Padding from both sides
+        wrap: true,
+        size: width() * 0.06,
+        font: "myfont",
       }),
-      pos(width() / 2, 100),
+      pos(width() / 2, height() * 0.2),
       anchor("center"),
     ]);
   }
@@ -994,12 +1202,13 @@ scene("fameHigh", () => {
     text(
       "Congrats, you're now a star! Paparazzi follow you everywhere, your Oscar speech is ready, but you're too busy attending VIP parties to actually write a script that wins one.",
       {
-        width: width() - 500,
+        width: width() - PADDING * 2, // Padding from both sides
         wrap: true,
-        size: 30,
+        size: TEXT_SIZE,
+        font: "myfont",
       }
     ),
-    pos(width() / 2, 300),
+    pos(endingText.pos.x, endingText.pos.y + 100),
     anchor("center"),
   ]);
 
@@ -1008,15 +1217,18 @@ scene("fameHigh", () => {
 });
 
 scene("egoHigh", () => {
+  let endingText = null;
   if (!unlockedEndings.egoHigh) {
     endingsScore++;
     unlockedEndings.egoHigh = true;
-    add([
+    endingText = add([
       text("New ending unlocked!", {
-        width: width() - 500,
-        size: 30,
+        width: width() - PADDING * 2, // Padding from both sides
+        wrap: true,
+        size: width() * 0.06,
+        font: "myfont",
       }),
-      pos(width() / 2, 100),
+      pos(width() / 2, height() * 0.2),
       anchor("center"),
     ]);
   }
@@ -1024,14 +1236,14 @@ scene("egoHigh", () => {
     text(
       "You lose all your friends and connections, persuaded that your scripts are underrated. You're a genius, but only in your mind. You end up making one-person shows that nobody buys tickets for.",
       {
-        width: width() - 500,
+        width: width() - PADDING * 2, // Padding from both sides
         wrap: true,
-        size: 30,
+        size: TEXT_SIZE,
+        font: "myfont",
       }
     ),
-    pos(width() / 2, 300),
+    pos(endingText.pos.x, endingText.pos.y + 100),
     anchor("center"),
-    color(rgb(26, 28, 26)),
   ]);
 
   onKeyPress("space", () => go("start"));
@@ -1039,31 +1251,33 @@ scene("egoHigh", () => {
 });
 
 scene("moneyHigh", () => {
+  let endingText = null;
   if (!unlockedEndings.moneyHigh) {
     endingsScore++;
     unlockedEndings.moneyHigh = true;
-    add([
+    endingText = add([
       text("New ending unlocked!", {
-        width: width() - 500,
-        size: 30,
+        width: width() - PADDING * 2, // Padding from both sides
+        wrap: true,
+        size: width() * 0.06,
+        font: "myfont",
       }),
-      pos(width() / 2, 100),
+      pos(width() / 2, height() * 0.2),
       anchor("center"),
-      color(rgb(26, 28, 26)),
     ]);
   }
   add([
     text(
       "You're lured by the glitter of money and bid farewell to your artistic dreams. You become a producer, but word on the street is that your bankroll is more mob-connected than your movie plots.",
       {
-        width: width() - 500,
+        width: width() - PADDING * 2, // Padding from both sides
         wrap: true,
-        size: 30,
+        size: TEXT_SIZE,
+        font: "myfont",
       }
     ),
-    pos(width() / 2, 300),
+    pos(endingText.pos.x, endingText.pos.y + 100),
     anchor("center"),
-    color(rgb(26, 28, 26)),
   ]);
 
   onKeyPress("space", () => go("start"));
@@ -1071,15 +1285,18 @@ scene("moneyHigh", () => {
 });
 
 scene("relationshipsHigh", () => {
+  let endingText = null;
   if (!unlockedEndings.relationshipsHigh) {
     endingsScore++;
     unlockedEndings.relationshipsHigh = true;
-    add([
+    endingText = add([
       text("New ending unlocked!", {
-        width: width() - 500,
-        size: 30,
+        width: width() - PADDING * 2, // Padding from both sides
+        wrap: true,
+        size: width() * 0.06,
+        font: "myfont",
       }),
-      pos(width() / 2, 100),
+      pos(width() / 2, height() * 0.2),
       anchor("center"),
     ]);
   }
@@ -1087,14 +1304,14 @@ scene("relationshipsHigh", () => {
     text(
       "Your desperate bid to please everyone turns you into a doormat. You end up writing tweets, desperately seeking likes and fleeting fame.",
       {
-        width: width() - 500,
+        width: width() - PADDING * 2, // Padding from both sides
         wrap: true,
-        size: 30,
+        size: TEXT_SIZE,
+        font: "myfont",
       }
     ),
-    pos(width() / 2, 300),
+    pos(endingText.pos.x, endingText.pos.y + 100),
     anchor("center"),
-    color(rgb(26, 28, 26)),
   ]);
 
   onKeyPress("space", () => go("start"));
@@ -1102,31 +1319,33 @@ scene("relationshipsHigh", () => {
 });
 
 scene("fameLow", () => {
+  let endingText = null;
   if (!unlockedEndings.fameLow) {
     endingsScore++;
     unlockedEndings.fameLow = true;
-    add([
+    endingText = add([
       text("New ending unlocked!", {
-        width: width() - 500,
-        size: 30,
+        width: width() - PADDING * 2, // Padding from both sides
+        wrap: true,
+        size: width() * 0.06,
+        font: "myfont",
       }),
-      pos(width() / 2, 100),
+      pos(width() / 2, height() * 0.2),
       anchor("center"),
-      color(rgb(26, 28, 26)),
     ]);
   }
   add([
     text(
       "You perfectly proved your point that your movies are 'for art, not audiences': the only person who attended your big movie premiere was your mum - only to ask when you are getting a real job.",
       {
-        width: width() - 500,
+        width: width() - PADDING * 2, // Padding from both sides
         wrap: true,
-        size: 30,
+        size: TEXT_SIZE,
+        font: "myfont",
       }
     ),
-    pos(width() / 2, 300),
+    pos(endingText.pos.x, endingText.pos.y + 100),
     anchor("center"),
-    color(rgb(26, 28, 26)),
   ]);
 
   onKeyPress("space", () => go("start"));
@@ -1134,31 +1353,33 @@ scene("fameLow", () => {
 });
 
 scene("egoLow", () => {
+  let endingText = null;
   if (!unlockedEndings.egoLow) {
     endingsScore++;
     unlockedEndings.egoLow = true;
-    add([
+    endingText = add([
       text("New ending unlocked!", {
-        width: width() - 500,
-        size: 30,
+        width: width() - PADDING * 2, // Padding from both sides
+        wrap: true,
+        size: width() * 0.06,
+        font: "myfont",
       }),
-      pos(width() / 2, 100),
+      pos(width() / 2, height() * 0.2),
       anchor("center"),
-      color(rgb(26, 28, 26)),
     ]);
   }
   add([
     text(
       "You don't know how to defend your point. Actually, you don't even know what your point is. You surrender to your parents' wishes and head off to law school.",
       {
-        width: width() - 500,
+        width: width() - PADDING * 2, // Padding from both sides
         wrap: true,
-        size: 30,
+        size: TEXT_SIZE,
+        font: "myfont",
       }
     ),
-    pos(width() / 2, 300),
+    pos(endingText.pos.x, endingText.pos.y + 100),
     anchor("center"),
-    color(rgb(26, 28, 26)),
   ]);
 
   onKeyPress("space", () => go("start"));
@@ -1166,31 +1387,33 @@ scene("egoLow", () => {
 });
 
 scene("moneyLow", () => {
+  let endingText = null;
   if (!unlockedEndings.moneyLow) {
     endingsScore++;
     unlockedEndings.moneyLow = true;
-    add([
+    endingText = add([
       text("New ending unlocked!", {
-        width: width() - 500,
-        size: 30,
+        width: width() - PADDING * 2, // Padding from both sides
+        wrap: true,
+        size: width() * 0.06,
+        font: "myfont",
       }),
-      pos(width() / 2, 100),
+      pos(width() / 2, height() * 0.2),
       anchor("center"),
-      color(rgb(26, 28, 26)),
     ]);
   }
   add([
     text(
       "You're so broke that you resort to stealing food. You get caught and end up in jail. On the bright side you'll have some stories to tell when you get out.",
       {
-        width: width() - 500,
+        width: width() - PADDING * 2, // Padding from both sides
         wrap: true,
-        size: 30,
+        size: TEXT_SIZE,
+        font: "myfont",
       }
     ),
-    pos(width() / 2, 300),
+    pos(endingText.pos.x, endingText.pos.y + 100),
     anchor("center"),
-    color(rgb(26, 28, 26)),
   ]);
 
   onKeyPress("space", () => go("start"));
@@ -1198,31 +1421,33 @@ scene("moneyLow", () => {
 });
 
 scene("relationshipsLow", () => {
+  let endingText = null;
   if (!unlockedEndings.relationshipsLow) {
     endingsScore++;
     unlockedEndings.relationshipsLow = true;
-    add([
+    endingText = add([
       text("New ending unlocked!", {
-        width: width() - 500,
-        size: 30,
+        width: width() - PADDING * 2, // Padding from both sides
+        wrap: true,
+        size: width() * 0.06,
+        font: "myfont",
       }),
-      pos(width() / 2, 100),
+      pos(width() / 2, height() * 0.2),
       anchor("center"),
-      color(rgb(26, 28, 26)),
     ]);
   }
   add([
     text(
       "People are afraid to deal with you. You end up alone, writing scripts that nobody will ever read and go crazy talking to your characters. At least they listen to you.",
       {
-        width: width() - 500,
+        width: width() - PADDING * 2, // Padding from both sides
         wrap: true,
-        size: 30,
+        size: TEXT_SIZE,
+        font: "myfont",
       }
     ),
-    pos(width() / 2, 300),
+    pos(endingText.pos.x, endingText.pos.y + 100),
     anchor("center"),
-    color(rgb(26, 28, 26)),
   ]);
 
   onKeyPress("space", () => go("start"));
@@ -1230,15 +1455,18 @@ scene("relationshipsLow", () => {
 });
 
 scene("universityLow", () => {
+  let endingText = null;
   if (!unlockedEndings.universityLow) {
     endingsScore++;
     unlockedEndings.universityLow = true;
-    add([
+    endingText = add([
       text("New ending unlocked!", {
-        width: width() - 500,
-        size: 30,
+        width: width() - PADDING * 2, // Padding from both sides
+        wrap: true,
+        size: width() * 0.06,
+        font: "myfont",
       }),
-      pos(width() / 2, 100),
+      pos(width() / 2, height() * 0.2),
       anchor("center"),
     ]);
   }
@@ -1246,29 +1474,33 @@ scene("universityLow", () => {
     text(
       "You drop out of university and become a bartender. You're now a master of mixing drinks and stories, and the local drunkards can't get enough of both.",
       {
-        width: width() - 500,
+        width: width() - PADDING * 2, // Padding from both sides
         wrap: true,
-        size: 30,
+        size: TEXT_SIZE,
+        font: "myfont",
       }
     ),
-    pos(width() / 2, 300),
+    pos(endingText.pos.x, endingText.pos.y + 100),
     anchor("center"),
-    color(rgb(26, 28, 26)),
   ]);
+
   onKeyPress("space", () => go("start"));
   onClick(() => go("start"));
 });
 
 scene("universityHigh", () => {
+  let endingText = null;
   if (!unlockedEndings.universityHigh) {
     endingsScore++;
     unlockedEndings.universityHigh = true;
-    add([
+    endingText = add([
       text("New ending unlocked!", {
-        width: width() - 500,
-        size: 30,
+        width: width() - PADDING * 2, // Padding from both sides
+        wrap: true,
+        size: width() * 0.06,
+        font: "myfont",
       }),
-      pos(width() / 2, 100),
+      pos(width() / 2, height() * 0.2),
       anchor("center"),
     ]);
   }
@@ -1276,29 +1508,33 @@ scene("universityHigh", () => {
     text(
       "You pursue an academic career and eventually become a professor. You've written a book about screenwriting but have never made any movie. You feel like a fraud.",
       {
-        width: width() - 500,
+        width: width() - PADDING * 2, // Padding from both sides
         wrap: true,
-        size: 30,
+        size: TEXT_SIZE,
+        font: "myfont",
       }
     ),
-    pos(width() / 2, 300),
+    pos(endingText.pos.x, endingText.pos.y + 100),
     anchor("center"),
-    color(rgb(26, 28, 26)),
   ]);
+
   onKeyPress("space", () => go("start"));
   onClick(() => go("start"));
 });
 
 scene("win1", () => {
+  let endingText = null;
   if (!unlockedEndings.win1) {
     endingsScore++;
     unlockedEndings.win1 = true;
-    add([
+    endingText = add([
       text("New ending unlocked!", {
-        width: width() - 500,
-        size: 30,
+        width: width() - PADDING * 2, // Padding from both sides
+        wrap: true,
+        size: width() * 0.06,
+        font: "myfont",
       }),
-      pos(width() / 2, 100),
+      pos(width() / 2, height() * 0.2),
       anchor("center"),
     ]);
   }
@@ -1306,17 +1542,18 @@ scene("win1", () => {
     text(
       "You successfully graduate from university, having written some great shorts and forged valuable connections. But beware, this is only Act One of your life journey.",
       {
-        width: width() - 500,
+        width: width() - PADDING * 2, // Padding from both sides
         wrap: true,
-        size: 30,
+        size: TEXT_SIZE,
+        font: "myfont",
       }
     ),
-    pos(width() / 2, 300),
+    pos(endingText.pos.x, endingText.pos.y + 100),
     anchor("center"),
   ]);
 
   const nextLevelButton = add([
-    rect(240, 80, { radius: 8 }),
+    rect(BUTTON_WIDTH, BUTTON_HEIGHT, { radius: 2 }),
     pos(width() / 2, 450),
     area(),
     scale(1),
@@ -1324,7 +1561,11 @@ scene("win1", () => {
     outline(4),
   ]);
 
-  nextLevelButton.add([text("Continue"), anchor("center"), color(0, 0, 0)]);
+  nextLevelButton.add([
+    text("Continue", { font: "myfont" }),
+    anchor("center"),
+    color(0, 0, 0),
+  ]);
 
   nextLevelButton.onClick(() => {
     go("level2");
@@ -1332,15 +1573,18 @@ scene("win1", () => {
 });
 
 scene("win2", () => {
+  let endingText = null;
   if (!unlockedEndings.win2) {
     endingsScore++;
     unlockedEndings.win2 = true;
-    add([
+    endingText = add([
       text("New ending unlocked!", {
-        width: width() - 500,
-        size: 30,
+        width: width() - PADDING * 2, // Padding from both sides
+        wrap: true,
+        size: width() * 0.06,
+        font: "myfont",
       }),
-      pos(width() / 2, 100),
+      pos(width() / 2, height() * 0.2),
       anchor("center"),
     ]);
   }
@@ -1348,14 +1592,14 @@ scene("win2", () => {
     text(
       "Great job! Your scripts are starting to turn heads, and your name is beginning to echo in industry circles. Bigger challenges and grander opportunities are just around the corner, but can you handle them?",
       {
-        width: width() - 500,
+        width: width() - PADDING * 2, // Padding from both sides
         wrap: true,
-        size: 30,
+        size: TEXT_SIZE,
+        font: "myfont",
       }
     ),
-    pos(width() / 2, 300),
+    pos(endingText.pos.x, endingText.pos.y + 100),
     anchor("center"),
-    color(rgb(26, 28, 26)),
   ]);
 
   const nextLevelButton = add([
@@ -1367,7 +1611,11 @@ scene("win2", () => {
     outline(4),
   ]);
 
-  nextLevelButton.add([text("Main page"), anchor("center"), color(0, 0, 0)]);
+  nextLevelButton.add([
+    text("Main page", { font: "myfont" }),
+    anchor("center"),
+    color(0, 0, 0),
+  ]);
 
   nextLevelButton.onClick(() => {
     go("start");
@@ -1376,26 +1624,34 @@ scene("win2", () => {
 
 scene("achievements", () => {
   const endingsButton = add([
-    rect(240, 80, { radius: 8 }),
-    pos(width() / 2, 150),
+    rect(BUTTON_WIDTH, BUTTON_HEIGHT, { radius: 2 }),
+    pos(width() / 2, height() / 4 + (BUTTON_HEIGHT + BUTTON_SPACING)),
     area(),
     scale(1),
     anchor("center"),
     outline(4),
   ]);
 
-  endingsButton.add([text("Endings"), anchor("center"), color(0, 0, 0)]);
+  endingsButton.add([
+    text("Endings", { font: "myfont" }),
+    anchor("center"),
+    color(0, 0, 0),
+  ]);
 
   const rewardsButton = add([
-    rect(240, 80, { radius: 8 }),
-    pos(width() / 2, 250),
+    rect(BUTTON_WIDTH, BUTTON_HEIGHT, { radius: 2 }),
+    pos(width() / 2, height() / 4 + 2 * (BUTTON_HEIGHT + BUTTON_SPACING)),
     area(),
     scale(1),
     anchor("center"),
     outline(4),
   ]);
 
-  rewardsButton.add([text("Rewards"), anchor("center"), color(0, 0, 0)]);
+  rewardsButton.add([
+    text("Rewards", { font: "myfont" }),
+    anchor("center"),
+    color(0, 0, 0),
+  ]);
 
   endingsButton.onClick(() => {
     go("endings");
@@ -1423,24 +1679,26 @@ scene("endings", () => {
     failedInterview: "Failed Interview",
   };
 
-  let yPosition = 50;
   const heading = add([
-    text(`Unlocked Endings: ${endingsScore}/13`),
-    pos(width() / 2, yPosition),
+    text(`Unlocked Endings: ${endingsScore}/13`, {
+      wrap: true,
+      size: width() * 0.06,
+      font: "myfont",
+    }),
+    pos(width() / 2, height() * 0.15),
     anchor("center"),
-    { size: 30 },
-    color(rgb(26, 28, 26)),
   ]);
+
+  let yPosition = heading.pos.y + 50;
 
   Object.keys(unlockedEndings).forEach((endingKey) => {
     if (unlockedEndings[endingKey]) {
-      yPosition += 50;
+      yPosition += 30;
       const displayText = endingDisplayText[endingKey];
       add([
-        text(displayText, { size: 24 }),
+        text(displayText, { size: TEXT_SIZE }),
         pos(width() / 2, yPosition),
         anchor("center"),
-        color(rgb(26, 28, 26)),
       ]);
     }
   });
@@ -1456,24 +1714,26 @@ scene("rewards", () => {
     artisticIntegrity: "Artistic Integrity",
   };
 
-  let yPosition = 50;
   const heading = add([
-    text(`Unlocked Rewards: `),
-    pos(width() / 2, yPosition),
+    text(`Unlocked Rewards: `, {
+      wrap: true,
+      size: width() * 0.06,
+      font: "myfont",
+    }),
+    pos(width() / 2, height() * 0.15),
     anchor("center"),
-    { size: 30 },
-    color(rgb(26, 28, 26)),
   ]);
+
+  let yPosition = heading.pos.y + 50;
 
   Object.keys(unlockedRewards).forEach((rewardKey) => {
     if (unlockedRewards[rewardKey]) {
       yPosition += 50;
       const displayText = rewardDisplayText[rewardKey];
       add([
-        text(displayText, { size: 24 }),
+        text(displayText, { size: TEXT_SIZE }),
         pos(width() / 2, yPosition),
         anchor("center"),
-        color(rgb(26, 28, 26)),
       ]);
     }
   });

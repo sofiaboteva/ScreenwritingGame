@@ -231,7 +231,7 @@ const mediationQuestions = [
 
   {
     question:
-      "If you are asked for a brief narrative description of your script's story to provide a quick overview, what do you give?",
+      "If you are asked for a brief narrative description of your story to provide a quick overview, what do you give?",
     answers: [
       {
         text: "Treatment",
@@ -289,7 +289,7 @@ const mediationQuestions = [
 
   {
     question:
-      "Which of the following is generally longer and used as a tool for the screenwriter's own development process rather than for marketing purposes?",
+      "Which document is rather used as a tool for the screenwriter's own development process rather than for marketing purposes?",
     answers: [
       {
         text: "Treatment",
