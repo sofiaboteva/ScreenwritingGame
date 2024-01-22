@@ -6,7 +6,7 @@ html {
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background-image: url("/sprites/screenwriter.png");
+  background-image: url("/assets/screenwriter.png");
   background-position: center;
   background-repeat: no-repeat;
   background-color: black;
