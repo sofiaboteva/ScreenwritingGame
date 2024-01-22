@@ -22,8 +22,8 @@
 | 02.12        | Big Head' Reward (niveau 1)                                                                                                                     | 2               |
 | 04.12        | Big Head' Reward (niveau 2), ajouts d'une nouvelle valeur pour pouvoir calculer les scores pour 'Artistic Integrity' Reward                     | 2               |
 | 15.12        | Artistic Integrity Reward' ajouté                                                                                                               | 2               |
-| 10.12-11.12  | Restructurer le dossier; changement de couleur, test DALL.E pour le visuel (pas réussis),                                                       | 5               |
-| 12.12        | Ajout du tutoriel                                                                                                                               | 4               |
-| 13.12        | Tutoriel complété                                                                                                                               | 4               |
-| 14.12-22.12  | Rapport + Le visuel                                                                                                                             | 35              |
+| 10.01-11.01  | Restructurer le dossier; changement de couleur, test DALL.E pour le visuel (pas réussis),                                                       | 5               |
+| 12.01        | Ajout du tutoriel                                                                                                                               | 4               |
+| 13.01        | Tutoriel complété                                                                                                                               | 4               |
+| 14.01-22.01  | Rapport + Le visuel                                                                                                                             | 35              |
 | TOTAL        |                                                                                                                                                 | 166             |
