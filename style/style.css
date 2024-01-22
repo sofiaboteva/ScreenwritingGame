@@ -2,19 +2,19 @@ body,
 html {
   margin: 0;
   padding: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
+  display: flex; /* flexbox layout to center child elements. */
+  justify-content: center; /* Center child elements horizontally in the flex container. */
+  align-items: center; /* Center child elements vertically in the flex container. */
+  height: 100vh; /* Set the height of the body to be 100% of the viewport height. */
   background-image: url("/assets/screenwriter.png");
   background-position: center;
-  background-repeat: no-repeat;
-  background-color: black;
+  background-repeat: no-repeat; /* Ensure the background image does not repeat. */
+  background-color: black; /* Background color for areas not covered by the image. */
 }
 
 #game-container {
-  width: 50vw; /* Adjust based on your preference */
-  height: 80vh; /* Adjust based on your preference */
+  width: 50vw; /* The width of the game container to be 50% of the viewport width. */
+  height: 80vh; /* ... and 80% of the viewport height. */
   background-color: transparent;
   display: flex;
   justify-content: center;
